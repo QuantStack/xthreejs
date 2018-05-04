@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xwebgl_state));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xwebgl_state>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xwebgl_state>>;
+    extern template class xw::xgenerator<xthree::xwebgl_state>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xwebgl_state>>;
+#endif
+
 #endif

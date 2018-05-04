@@ -99,8 +99,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xline_dashed_material));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xline_dashed_material>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xline_dashed_material>>;
+    extern template class xw::xgenerator<xthree::xline_dashed_material>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xline_dashed_material>>;
+#endif
+
 #endif

@@ -84,8 +84,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xinstanced_interleaved_buffer));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xinstanced_interleaved_buffer>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_interleaved_buffer>>;
+    extern template class xw::xgenerator<xthree::xinstanced_interleaved_buffer>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_interleaved_buffer>>;
+#endif
+
 #endif

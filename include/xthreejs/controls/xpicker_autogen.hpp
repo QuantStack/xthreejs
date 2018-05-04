@@ -120,8 +120,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xpicker));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xpicker>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xpicker>>;
+    extern template class xw::xgenerator<xthree::xpicker>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xpicker>>;
+#endif
+
 #endif

@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xlens_flare));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xlens_flare>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xlens_flare>>;
+    extern template class xw::xgenerator<xthree::xlens_flare>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xlens_flare>>;
+#endif
+
 #endif

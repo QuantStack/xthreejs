@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xraw_shader_material));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xraw_shader_material>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xraw_shader_material>>;
+    extern template class xw::xgenerator<xthree::xraw_shader_material>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xraw_shader_material>>;
+#endif
+
 #endif

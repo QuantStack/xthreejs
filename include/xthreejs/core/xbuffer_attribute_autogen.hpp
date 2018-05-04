@@ -15,6 +15,37 @@
 
 namespace xthree
 {
+    struct buffer_t: public xt::xtensor<float, 2>
+    {
+        using base_type = xt::xtensor<float, 2>;
+        
+        buffer_t(): base_type(){}
+
+        template <class D> 
+        buffer_t(const xt::xexpression<D>& b) : base_type(b){};
+        template <class D> 
+        buffer_t(xt::xexpression<D>&& b) : base_type(std::move(b)){};
+    };
+
+    inline void xwidgets_deserialize(buffer_t& value, xeus::xjson& j, const xeus::buffer_sequence& buffers)
+    {
+        std::size_t index = xw::buffer_index(j.template get<std::string>());
+        const auto& buffer = buffers[index];
+        value = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+                          buffer.size() / 4, xt::no_ownership(),
+                          std::array<std::size_t, 1>{2});
+    }
+
+    inline void xwidgets_serialize(const buffer_t& value, xeus::xjson& j, xeus::buffer_sequence& buffers)
+    {
+        j = {
+            {"shape", value.shape()},
+            {"dtype", "float32"},
+            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+        };
+        // TODO raw_data -> data upon release 0.16 for xtensor
+        buffers.emplace_back(value.raw_data(), 4 * value.size());
+    }
     //
     // buffer_attribute declaration
     //
@@ -26,7 +57,7 @@ namespace xthree
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
+        using buffer_type = buffer_t;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -61,73 +92,101 @@ namespace xthree
     // buffer_attribute implementation
     //
 
-    template <class D>
-    inline const std::vector<xw::xjson_path_type>&  xbuffer_attribute<D>::buffer_paths() const
-    {
-        static const std::vector<xw::xjson_path_type> default_buffer_paths = { 
-            { "array", "buffer" },
-        };
-        return default_buffer_paths;
-    }
+    // template <class D>
+    // inline const std::vector<xw::xjson_path_type>&  xbuffer_attribute<D>::buffer_paths() const
+    // {
+    //     static const std::vector<xw::xjson_path_type> default_buffer_paths = { 
+    //         { "array", "buffer" },
+    //     };
+    //     return default_buffer_paths;
+    // }
 
-    inline void set_patch_from_property(const decltype(buffer_attribute::array)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
+    // inline void set_property_from_patch(buffer_t& property,
+    //                                     const xeus::xjson& patch,
+    //                                     const xeus::buffer_sequence& buffers)
+    // {
+    //     auto it = patch.find(property.name());
+    //     if (it != patch.end())
+    //     {
+    //         typename P::value_type value;
+    //         xw::xwidgets_deserialize(value, *it, buffers);
+    //         property = value;
+    //     }
+    // }
 
-    inline void set_property_from_patch(decltype(buffer_attribute::array)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(buffer_attribute::array)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
+    // inline void set_patch_from_property(buffer_t& property,
+    //                                     xeus::xjson& patch,
+    //                                     xeus::buffer_sequence& buffers)
+    // {
+    //     xeus::xjson j = {
+    //         {"shape", property().shape()},
+    //         {"dtype", "float32"},
+    //         {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+    //     };
+    //     patch[property.name()] = std::move(j);
+    //     // TODO raw_data -> data upon release 0.16 for xtensor
+    //     buffers.emplace_back(property().raw_data(), 4 * property().size());
+    // }
+
+
+    // inline void set_patch_from_property(const decltype(buffer_attribute::array)& property,
+    //                                     xeus::xjson& patch,
+    //                                     xeus::buffer_sequence& buffers)
+    // {
+    //     xeus::xjson j = {
+    //         {"shape", property().shape()},
+    //         {"dtype", "float32"},
+    //         {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+    //     };
+    //     patch[property.name()] = std::move(j);
+    //     // TODO raw_data -> data upon release 0.16 for xtensor
+    //     buffers.emplace_back(property().raw_data(), 4 * property().size());
+    // }
+
+    // inline void set_property_from_patch(decltype(buffer_attribute::array)& property,
+    //                                     const xeus::xjson& patch,
+    //                                     const xeus::buffer_sequence& buffers)
+    // {
+    //     using value_type = typename decltype(buffer_attribute::array)::value_type;
+    //     std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
+    //     const auto& buffer = buffers[index];
+    //     property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+    //                          buffer.size() / 4, xt::no_ownership(),
+    //                          std::array<std::size_t, 1>{2});
+    // }
     
-    inline void set_patch_from_property(const decltype(buffer_attribute_generator::array)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
+    // inline void set_patch_from_property(const decltype(buffer_attribute_generator::array)& property,
+    //                                     xeus::xjson& patch,
+    //                                     xeus::buffer_sequence& buffers)
+    // {
+    //     xeus::xjson j = {
+    //         {"shape", property().shape()},
+    //         {"dtype", "float32"},
+    //         {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+    //     };
+    //     patch[property.name()] = std::move(j);
+    //     // TODO raw_data -> data upon release 0.16 for xtensor
+    //     buffers.emplace_back(property().raw_data(), 4 * property().size());
+    // }
 
-    inline void set_property_from_patch(decltype(buffer_attribute_generator::array)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(buffer_attribute_generator::array)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
+    // inline void set_property_from_patch(decltype(buffer_attribute_generator::array)& property,
+    //                                     const xeus::xjson& patch,
+    //                                     const xeus::buffer_sequence& buffers)
+    // {
+    //     using value_type = typename decltype(buffer_attribute_generator::array)::value_type;
+    //     std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
+    //     const auto& buffer = buffers[index];
+    //     property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+    //                          buffer.size() / 4, xt::no_ownership(),
+    //                          std::array<std::size_t, 1>{2});
+    // }
 
     template <class D>
     inline void xbuffer_attribute<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
-        set_patch_from_property(array, state, buffers);
+        xw::set_patch_from_property(array, state, buffers);
         xw::set_patch_from_property(dynamic, state, buffers);
         xw::set_patch_from_property(needsUpdate, state, buffers);
         xw::set_patch_from_property(normalized, state, buffers);
@@ -139,7 +198,7 @@ namespace xthree
     {
         base_type::apply_patch(patch, buffers);
 
-        set_property_from_patch(array, patch, buffers);
+        xw::set_property_from_patch(array, patch, buffers);
         xw::set_property_from_patch(dynamic, patch, buffers);
         xw::set_property_from_patch(needsUpdate, patch, buffers);
         xw::set_property_from_patch(normalized, patch, buffers);
@@ -161,8 +220,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xbuffer_attribute));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xbuffer_attribute>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_attribute>>;
+    extern template class xw::xgenerator<xthree::xbuffer_attribute>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_attribute>>;
+#endif
+
 #endif

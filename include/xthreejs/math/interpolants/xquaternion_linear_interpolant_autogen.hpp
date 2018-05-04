@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xquaternion_linear_interpolant));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xquaternion_linear_interpolant>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xquaternion_linear_interpolant>>;
+    extern template class xw::xgenerator<xthree::xquaternion_linear_interpolant>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xquaternion_linear_interpolant>>;
+#endif
+
 #endif

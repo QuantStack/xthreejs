@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xspot_light_shadow));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xspot_light_shadow>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xspot_light_shadow>>;
+    extern template class xw::xgenerator<xthree::xspot_light_shadow>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xspot_light_shadow>>;
+#endif
+
 #endif

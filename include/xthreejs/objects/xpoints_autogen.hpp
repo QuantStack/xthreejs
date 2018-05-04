@@ -87,8 +87,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xpoints));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xpoints>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xpoints>>;
+    extern template class xw::xgenerator<xthree::xpoints>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xpoints>>;
+#endif
+
 #endif

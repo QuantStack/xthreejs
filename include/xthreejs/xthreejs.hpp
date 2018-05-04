@@ -17,6 +17,5 @@
 #include "xobjects.hpp"
 #include "xrenderers.hpp"
 #include "xscenes.hpp"
-#include "xsrc.hpp"
 #include "xtextures.hpp"
 #endif

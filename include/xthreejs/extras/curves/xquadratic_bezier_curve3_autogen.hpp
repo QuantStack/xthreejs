@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xquadratic_bezier_curve3));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xquadratic_bezier_curve3>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xquadratic_bezier_curve3>>;
+    extern template class xw::xgenerator<xthree::xquadratic_bezier_curve3>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xquadratic_bezier_curve3>>;
+#endif
+
 #endif

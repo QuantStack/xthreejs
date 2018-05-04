@@ -120,8 +120,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xtrackball_controls));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xtrackball_controls>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xtrackball_controls>>;
+    extern template class xw::xgenerator<xthree::xtrackball_controls>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xtrackball_controls>>;
+#endif
+
 #endif

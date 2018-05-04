@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xaudio_listener));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xaudio_listener>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xaudio_listener>>;
+    extern template class xw::xgenerator<xthree::xaudio_listener>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xaudio_listener>>;
+#endif
+
 #endif

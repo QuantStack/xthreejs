@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xvideo_texture));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xvideo_texture>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xvideo_texture>>;
+    extern template class xw::xgenerator<xthree::xvideo_texture>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xvideo_texture>>;
+#endif
+
 #endif

@@ -52,6 +52,58 @@ namespace xthree
     // instanced_buffer_attribute implementation
     //
 
+    inline void set_patch_from_property(const decltype(instanced_buffer_attribute::array)& property,
+                                        xeus::xjson& patch,
+                                        xeus::buffer_sequence& buffers)
+    {
+        xeus::xjson j = {
+            {"shape", property().shape()},
+            {"dtype", "float32"},
+            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+        };
+        patch[property.name()] = std::move(j);
+        // TODO raw_data -> data upon release 0.16 for xtensor
+        buffers.emplace_back(property().raw_data(), 4 * property().size());
+    }
+
+    inline void set_property_from_patch(decltype(instanced_buffer_attribute::array)& property,
+                                        const xeus::xjson& patch,
+                                        const xeus::buffer_sequence& buffers)
+    {
+        using value_type = typename decltype(instanced_buffer_attribute::array)::value_type;
+        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
+        const auto& buffer = buffers[index];
+        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+                             buffer.size() / 4, xt::no_ownership(),
+                             std::array<std::size_t, 1>{2});
+    }
+    
+    inline void set_patch_from_property(const decltype(instanced_buffer_attribute_generator::array)& property,
+                                        xeus::xjson& patch,
+                                        xeus::buffer_sequence& buffers)
+    {
+        xeus::xjson j = {
+            {"shape", property().shape()},
+            {"dtype", "float32"},
+            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
+        };
+        patch[property.name()] = std::move(j);
+        // TODO raw_data -> data upon release 0.16 for xtensor
+        buffers.emplace_back(property().raw_data(), 4 * property().size());
+    }
+
+    inline void set_property_from_patch(decltype(instanced_buffer_attribute_generator::array)& property,
+                                        const xeus::xjson& patch,
+                                        const xeus::buffer_sequence& buffers)
+    {
+        using value_type = typename decltype(instanced_buffer_attribute_generator::array)::value_type;
+        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
+        const auto& buffer = buffers[index];
+        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+                             buffer.size() / 4, xt::no_ownership(),
+                             std::array<std::size_t, 1>{2});
+    }
+
 
     template <class D>
     inline void xinstanced_buffer_attribute<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
@@ -84,8 +136,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xinstanced_buffer_attribute));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xinstanced_buffer_attribute>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute>>;
+    extern template class xw::xgenerator<xthree::xinstanced_buffer_attribute>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute>>;
+#endif
+
 #endif

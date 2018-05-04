@@ -99,8 +99,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xraycaster));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xraycaster>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xraycaster>>;
+    extern template class xw::xgenerator<xthree::xraycaster>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xraycaster>>;
+#endif
+
 #endif

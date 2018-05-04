@@ -87,8 +87,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xicosahedron_geometry));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xicosahedron_geometry>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xicosahedron_geometry>>;
+    extern template class xw::xgenerator<xthree::xicosahedron_geometry>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xicosahedron_geometry>>;
+#endif
+
 #endif

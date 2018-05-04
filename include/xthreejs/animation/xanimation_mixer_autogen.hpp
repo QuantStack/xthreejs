@@ -90,8 +90,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xanimation_mixer));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xanimation_mixer>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xanimation_mixer>>;
+    extern template class xw::xgenerator<xthree::xanimation_mixer>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xanimation_mixer>>;
+#endif
+
 #endif

@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xrect_area_light));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xrect_area_light>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xrect_area_light>>;
+    extern template class xw::xgenerator<xthree::xrect_area_light>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xrect_area_light>>;
+#endif
+
 #endif

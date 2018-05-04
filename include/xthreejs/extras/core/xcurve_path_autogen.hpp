@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xcurve_path));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xcurve_path>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xcurve_path>>;
+    extern template class xw::xgenerator<xthree::xcurve_path>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xcurve_path>>;
+#endif
+
 #endif

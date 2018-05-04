@@ -114,8 +114,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xmesh_depth_material));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xmesh_depth_material>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xmesh_depth_material>>;
+    extern template class xw::xgenerator<xthree::xmesh_depth_material>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xmesh_depth_material>>;
+#endif
+
 #endif

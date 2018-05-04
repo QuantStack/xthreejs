@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::ximmediate_render_object));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::ximmediate_render_object>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::ximmediate_render_object>>;
+    extern template class xw::xgenerator<xthree::ximmediate_render_object>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::ximmediate_render_object>>;
+#endif
+
 #endif

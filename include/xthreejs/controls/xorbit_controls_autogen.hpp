@@ -144,8 +144,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xorbit_controls));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xorbit_controls>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xorbit_controls>>;
+    extern template class xw::xgenerator<xthree::xorbit_controls>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xorbit_controls>>;
+#endif
+
 #endif

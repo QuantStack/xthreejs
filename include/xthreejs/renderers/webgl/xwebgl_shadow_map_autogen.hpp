@@ -93,8 +93,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xwebgl_shadow_map));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xwebgl_shadow_map>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xwebgl_shadow_map>>;
+    extern template class xw::xgenerator<xthree::xwebgl_shadow_map>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xwebgl_shadow_map>>;
+#endif
+
 #endif

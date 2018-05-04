@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xproperty_mixer));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xproperty_mixer>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xproperty_mixer>>;
+    extern template class xw::xgenerator<xthree::xproperty_mixer>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xproperty_mixer>>;
+#endif
+
 #endif

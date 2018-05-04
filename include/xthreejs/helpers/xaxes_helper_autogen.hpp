@@ -84,8 +84,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xaxes_helper));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xaxes_helper>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xaxes_helper>>;
+    extern template class xw::xgenerator<xthree::xaxes_helper>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xaxes_helper>>;
+#endif
+
 #endif

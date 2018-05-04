@@ -91,8 +91,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xbuffer_geometry));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xbuffer_geometry>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_geometry>>;
+    extern template class xw::xgenerator<xthree::xbuffer_geometry>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_geometry>>;
+#endif
+
 #endif

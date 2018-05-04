@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xloading_manager));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xloading_manager>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xloading_manager>>;
+    extern template class xw::xgenerator<xthree::xloading_manager>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xloading_manager>>;
+#endif
+
 #endif

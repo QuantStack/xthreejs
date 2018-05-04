@@ -1,466 +1,1274 @@
-#include "xthreejs/xthreejs.hpp"
+//#include "xthreejs/xthreejs.hpp"
 
-//namespace xw
-//{
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_clip ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_object_group ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_utils ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xkeyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xproperty_binding ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xproperty_mixer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_action ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_mixer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xaudio_analyser ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xaudio ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xaudio_listener ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpositional_audio ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xarray_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcamera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcombined_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcube_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xorthographic_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xperspective_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xstereo_camera ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcontrols ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfly_controls ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xorbit_controls ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpicker ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtrackball_controls ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xscene_utils ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshape_utils ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbase_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbase_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbuffer_attribute ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbuffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xclock ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdirect_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xevent_dispatcher ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xgeometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinstanced_buffer_attribute ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinstanced_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinstanced_interleaved_buffer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinterleaved_buffer_attribute ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinterleaved_buffer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlayers ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xobject3d ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xraycaster ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xuniform ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcircle_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcircle_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcone_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcylinder_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcylinder_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdodecahedron_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xedges_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xicosahedron_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xextrude_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlathe_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlathe_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xoctahedron_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xparametric_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xplane_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xplane_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpolyhedron_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xring_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xring_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshape_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xsphere_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xsphere_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtetrahedron_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtext_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtorus_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtorus_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtorus_knot_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtube_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtorus_knot_buffer_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwireframe_geometry ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xambient_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdirectional_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdirectional_light_shadow ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xhemisphere_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlight ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlight_shadow ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpoint_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xrect_area_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xspot_light ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xspot_light_shadow ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xanimation_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xaudio_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbuffer_geometry_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcache ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcompressed_texture_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcube_texture_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdata_texture_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfile_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfont_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::ximage_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xj_s_o_n_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xloader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xloading_manager ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmaterial_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xobject_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtexture_loader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xarrow_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xaxes_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox3helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcamera_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdirectional_light_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xface_normals_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xgrid_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xhemisphere_light_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xplane_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpoint_light_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpolar_grid_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xrect_area_light_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xskeleton_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xspot_light_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xvertex_normals_helper ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_basic_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_dashed_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmaterial ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_basic_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_depth_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_lambert_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_normal_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_phong_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_physical_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_standard_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh_toon_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpoints_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xraw_shader_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshader_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshadow_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xsprite_material ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_render_target ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_render_target_cube ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfog ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfog_exp2 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xscene ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xblackbox ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbone ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xclone_array ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xgroup ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xl_o_d ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlens_flare ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_loop ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_segments ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmesh ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpoints ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xskeleton ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xskinned_mesh ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xsprite ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcompressed_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcube_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdata_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdepth_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::ximage_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtext_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtexture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xvideo_texture ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox2 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xbox3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcylindrical ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfrustum ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xinterpolant ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xmath ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xplane ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xquaternion ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xray ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xsphere ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xspherical ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xtriangle ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xboolean_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcolor_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xnumber_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xquaternion_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xstring_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xvector_keyframe_track ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcurve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcurve_path ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xfont ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xpath ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshape ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xshape_path ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::ximmediate_render_object ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xarc_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcatmull_rom_curve3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcubic_bezier_curve3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcubic_bezier_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xellipse_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_curve3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xline_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xquadratic_bezier_curve3 ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xquadratic_bezier_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xspline_curve ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_buffer_renderer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_capabilities ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_extensions ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_geometries ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_indexed_buffer_renderer ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_lights ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_objects ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_program ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_programs ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_properties ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_shader ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_shadow_map ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xwebgl_state ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xcubic_interpolant ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xdiscrete_interpolant ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xlinear_interpolant ));
-//    
-//    XPRECOMPILE(NO_EXTERN, (xthree::xquaternion_linear_interpolant ));
-//    
-//
-//    XPRECOMPILE_WITH_ARG1(EXTERN, (xthree::xpreview),
-//        (
-//            xthree::box_buffer_geometry,
-//            xthree::box_geometry,
-//            xthree::circle_buffer_geometry,
-//            xthree::circle_geometry,
-//            xthree::cone_geometry,
-//            xthree::cylinder_buffer_geometry,
-//            xthree::cylinder_geometry,
-//            xthree::dodecahedron_geometry,
-//            xthree::edges_geometry,
-//            xthree::extrude_geometry,
-//            xthree::icosahedron_geometry,
-//            xthree::lathe_buffer_geometry,
-//            xthree::lathe_geometry,
-//            xthree::octahedron_geometry,
-//            xthree::parametric_geometry,
-//            xthree::plane_buffer_geometry,
-//            xthree::plane_geometry,
-//            xthree::polyhedron_geometry,
-//            xthree::ring_buffer_geometry,
-//            xthree::ring_geometry,
-//            xthree::shape_geometry,
-//            xthree::sphere_buffer_geometry,
-//            xthree::sphere_geometry,
-//            xthree::tetrahedron_geometry,
-//            xthree::text_geometry,
-//            xthree::torus_buffer_geometry,
-//            xthree::torus_geometry,
-//            xthree::torus_knot_buffer_geometry,
-//            xthree::torus_knot_geometry,
-//            xthree::tube_geometry,
-//            xthree::wireframe_geometry
-//        )
-//    )
-//}
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_action>;
+// template xw::xmaterialize<xthree::xanimation_action>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_action>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_action>;
+// template xw::xgenerator<xthree::xanimation_action>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_action>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_clip>;
+// template xw::xmaterialize<xthree::xanimation_clip>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_clip>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_clip>;
+// template xw::xgenerator<xthree::xanimation_clip>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_clip>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_mixer>;
+// template xw::xmaterialize<xthree::xanimation_mixer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_mixer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_mixer>;
+// template xw::xgenerator<xthree::xanimation_mixer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_mixer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_object_group>;
+// template xw::xmaterialize<xthree::xanimation_object_group>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_object_group>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_object_group>;
+// template xw::xgenerator<xthree::xanimation_object_group>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_object_group>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_utils>;
+// template xw::xmaterialize<xthree::xanimation_utils>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_utils>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_utils>;
+// template xw::xgenerator<xthree::xanimation_utils>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_utils>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xkeyframe_track>;
+// template xw::xmaterialize<xthree::xkeyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xkeyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xkeyframe_track>;
+// template xw::xgenerator<xthree::xkeyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xkeyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xproperty_binding>;
+// template xw::xmaterialize<xthree::xproperty_binding>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xproperty_binding>>;
+// template class XTHREE_API xw::xgenerator<xthree::xproperty_binding>;
+// template xw::xgenerator<xthree::xproperty_binding>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xproperty_binding>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xproperty_mixer>;
+// template xw::xmaterialize<xthree::xproperty_mixer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xproperty_mixer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xproperty_mixer>;
+// template xw::xgenerator<xthree::xproperty_mixer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xproperty_mixer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xaudio_analyser>;
+// template xw::xmaterialize<xthree::xaudio_analyser>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xaudio_analyser>>;
+// template class XTHREE_API xw::xgenerator<xthree::xaudio_analyser>;
+// template xw::xgenerator<xthree::xaudio_analyser>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xaudio_analyser>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xaudio>;
+// template xw::xmaterialize<xthree::xaudio>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xaudio>>;
+// template class XTHREE_API xw::xgenerator<xthree::xaudio>;
+// template xw::xgenerator<xthree::xaudio>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xaudio>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xaudio_listener>;
+// template xw::xmaterialize<xthree::xaudio_listener>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xaudio_listener>>;
+// template class XTHREE_API xw::xgenerator<xthree::xaudio_listener>;
+// template xw::xgenerator<xthree::xaudio_listener>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xaudio_listener>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpositional_audio>;
+// template xw::xmaterialize<xthree::xpositional_audio>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpositional_audio>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpositional_audio>;
+// template xw::xgenerator<xthree::xpositional_audio>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpositional_audio>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xarray_camera>;
+// template xw::xmaterialize<xthree::xarray_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xarray_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xarray_camera>;
+// template xw::xgenerator<xthree::xarray_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xarray_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcamera>;
+// template xw::xmaterialize<xthree::xcamera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcamera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcamera>;
+// template xw::xgenerator<xthree::xcamera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcamera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcombined_camera>;
+// template xw::xmaterialize<xthree::xcombined_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcombined_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcombined_camera>;
+// template xw::xgenerator<xthree::xcombined_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcombined_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcube_camera>;
+// template xw::xmaterialize<xthree::xcube_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcube_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcube_camera>;
+// template xw::xgenerator<xthree::xcube_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcube_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xorthographic_camera>;
+// template xw::xmaterialize<xthree::xorthographic_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xorthographic_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xorthographic_camera>;
+// template xw::xgenerator<xthree::xorthographic_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xorthographic_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xperspective_camera>;
+// template xw::xmaterialize<xthree::xperspective_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xperspective_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xperspective_camera>;
+// template xw::xgenerator<xthree::xperspective_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xperspective_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xstereo_camera>;
+// template xw::xmaterialize<xthree::xstereo_camera>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xstereo_camera>>;
+// template class XTHREE_API xw::xgenerator<xthree::xstereo_camera>;
+// template xw::xgenerator<xthree::xstereo_camera>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xstereo_camera>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcontrols>;
+// template xw::xmaterialize<xthree::xcontrols>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcontrols>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcontrols>;
+// template xw::xgenerator<xthree::xcontrols>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcontrols>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfly_controls>;
+// template xw::xmaterialize<xthree::xfly_controls>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfly_controls>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfly_controls>;
+// template xw::xgenerator<xthree::xfly_controls>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfly_controls>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xorbit_controls>;
+// template xw::xmaterialize<xthree::xorbit_controls>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xorbit_controls>>;
+// template class XTHREE_API xw::xgenerator<xthree::xorbit_controls>;
+// template xw::xgenerator<xthree::xorbit_controls>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xorbit_controls>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpicker>;
+// template xw::xmaterialize<xthree::xpicker>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpicker>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpicker>;
+// template xw::xgenerator<xthree::xpicker>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpicker>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtrackball_controls>;
+// template xw::xmaterialize<xthree::xtrackball_controls>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtrackball_controls>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtrackball_controls>;
+// template xw::xgenerator<xthree::xtrackball_controls>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtrackball_controls>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbase_buffer_geometry>;
+// template xw::xmaterialize<xthree::xbase_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbase_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbase_buffer_geometry>;
+// template xw::xgenerator<xthree::xbase_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbase_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbase_geometry>;
+// template xw::xmaterialize<xthree::xbase_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbase_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbase_geometry>;
+// template xw::xgenerator<xthree::xbase_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbase_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbuffer_attribute>;
+// template xw::xmaterialize<xthree::xbuffer_attribute>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbuffer_attribute>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbuffer_attribute>;
+// template xw::xgenerator<xthree::xbuffer_attribute>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbuffer_attribute>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbuffer_geometry>;
+// template xw::xmaterialize<xthree::xbuffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbuffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbuffer_geometry>;
+// template xw::xgenerator<xthree::xbuffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbuffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xclock>;
+// template xw::xmaterialize<xthree::xclock>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xclock>>;
+// template class XTHREE_API xw::xgenerator<xthree::xclock>;
+// template xw::xgenerator<xthree::xclock>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xclock>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdirect_geometry>;
+// template xw::xmaterialize<xthree::xdirect_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdirect_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdirect_geometry>;
+// template xw::xgenerator<xthree::xdirect_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdirect_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xevent_dispatcher>;
+// template xw::xmaterialize<xthree::xevent_dispatcher>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xevent_dispatcher>>;
+// template class XTHREE_API xw::xgenerator<xthree::xevent_dispatcher>;
+// template xw::xgenerator<xthree::xevent_dispatcher>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xevent_dispatcher>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xgeometry>;
+// template xw::xmaterialize<xthree::xgeometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xgeometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xgeometry>;
+// template xw::xgenerator<xthree::xgeometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xgeometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinstanced_buffer_attribute>;
+// template xw::xmaterialize<xthree::xinstanced_buffer_attribute>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinstanced_buffer_attribute>;
+// template xw::xgenerator<xthree::xinstanced_buffer_attribute>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinstanced_buffer_geometry>;
+// template xw::xmaterialize<xthree::xinstanced_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinstanced_buffer_geometry>;
+// template xw::xgenerator<xthree::xinstanced_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinstanced_interleaved_buffer>;
+// template xw::xmaterialize<xthree::xinstanced_interleaved_buffer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinstanced_interleaved_buffer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinstanced_interleaved_buffer>;
+// template xw::xgenerator<xthree::xinstanced_interleaved_buffer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinstanced_interleaved_buffer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinterleaved_buffer_attribute>;
+// template xw::xmaterialize<xthree::xinterleaved_buffer_attribute>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinterleaved_buffer_attribute>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinterleaved_buffer_attribute>;
+// template xw::xgenerator<xthree::xinterleaved_buffer_attribute>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinterleaved_buffer_attribute>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinterleaved_buffer>;
+// template xw::xmaterialize<xthree::xinterleaved_buffer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinterleaved_buffer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinterleaved_buffer>;
+// template xw::xgenerator<xthree::xinterleaved_buffer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinterleaved_buffer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlayers>;
+// template xw::xmaterialize<xthree::xlayers>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlayers>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlayers>;
+// template xw::xgenerator<xthree::xlayers>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlayers>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xobject3d>;
+// template xw::xmaterialize<xthree::xobject3d>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xobject3d>>;
+// template class XTHREE_API xw::xgenerator<xthree::xobject3d>;
+// template xw::xgenerator<xthree::xobject3d>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xobject3d>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xraycaster>;
+// template xw::xmaterialize<xthree::xraycaster>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xraycaster>>;
+// template class XTHREE_API xw::xgenerator<xthree::xraycaster>;
+// template xw::xgenerator<xthree::xraycaster>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xraycaster>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xuniform>;
+// template xw::xmaterialize<xthree::xuniform>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xuniform>>;
+// template class XTHREE_API xw::xgenerator<xthree::xuniform>;
+// template xw::xgenerator<xthree::xuniform>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xuniform>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xscene_utils>;
+// template xw::xmaterialize<xthree::xscene_utils>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xscene_utils>>;
+// template class XTHREE_API xw::xgenerator<xthree::xscene_utils>;
+// template xw::xgenerator<xthree::xscene_utils>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xscene_utils>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshape_utils>;
+// template xw::xmaterialize<xthree::xshape_utils>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshape_utils>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshape_utils>;
+// template xw::xgenerator<xthree::xshape_utils>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshape_utils>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox_buffer_geometry>;
+// template xw::xmaterialize<xthree::xbox_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox_buffer_geometry>;
+// template xw::xgenerator<xthree::xbox_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox_geometry>;
+// template xw::xmaterialize<xthree::xbox_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox_geometry>;
+// template xw::xgenerator<xthree::xbox_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcircle_buffer_geometry>;
+// template xw::xmaterialize<xthree::xcircle_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcircle_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcircle_buffer_geometry>;
+// template xw::xgenerator<xthree::xcircle_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcircle_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcircle_geometry>;
+// template xw::xmaterialize<xthree::xcircle_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcircle_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcircle_geometry>;
+// template xw::xgenerator<xthree::xcircle_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcircle_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcone_geometry>;
+// template xw::xmaterialize<xthree::xcone_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcone_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcone_geometry>;
+// template xw::xgenerator<xthree::xcone_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcone_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcylinder_buffer_geometry>;
+// template xw::xmaterialize<xthree::xcylinder_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcylinder_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcylinder_buffer_geometry>;
+// template xw::xgenerator<xthree::xcylinder_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcylinder_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcylinder_geometry>;
+// template xw::xmaterialize<xthree::xcylinder_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcylinder_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcylinder_geometry>;
+// template xw::xgenerator<xthree::xcylinder_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcylinder_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdodecahedron_geometry>;
+// template xw::xmaterialize<xthree::xdodecahedron_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdodecahedron_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdodecahedron_geometry>;
+// template xw::xgenerator<xthree::xdodecahedron_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdodecahedron_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xedges_geometry>;
+// template xw::xmaterialize<xthree::xedges_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xedges_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xedges_geometry>;
+// template xw::xgenerator<xthree::xedges_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xedges_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xextrude_geometry>;
+// template xw::xmaterialize<xthree::xextrude_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xextrude_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xextrude_geometry>;
+// template xw::xgenerator<xthree::xextrude_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xextrude_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xicosahedron_geometry>;
+// template xw::xmaterialize<xthree::xicosahedron_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xicosahedron_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xicosahedron_geometry>;
+// template xw::xgenerator<xthree::xicosahedron_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xicosahedron_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlathe_buffer_geometry>;
+// template xw::xmaterialize<xthree::xlathe_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlathe_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlathe_buffer_geometry>;
+// template xw::xgenerator<xthree::xlathe_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlathe_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlathe_geometry>;
+// template xw::xmaterialize<xthree::xlathe_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlathe_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlathe_geometry>;
+// template xw::xgenerator<xthree::xlathe_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlathe_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xoctahedron_geometry>;
+// template xw::xmaterialize<xthree::xoctahedron_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xoctahedron_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xoctahedron_geometry>;
+// template xw::xgenerator<xthree::xoctahedron_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xoctahedron_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xparametric_geometry>;
+// template xw::xmaterialize<xthree::xparametric_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xparametric_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xparametric_geometry>;
+// template xw::xgenerator<xthree::xparametric_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xparametric_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xplane_buffer_geometry>;
+// template xw::xmaterialize<xthree::xplane_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xplane_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xplane_buffer_geometry>;
+// template xw::xgenerator<xthree::xplane_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xplane_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xplane_geometry>;
+// template xw::xmaterialize<xthree::xplane_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xplane_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xplane_geometry>;
+// template xw::xgenerator<xthree::xplane_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xplane_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpolyhedron_geometry>;
+// template xw::xmaterialize<xthree::xpolyhedron_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpolyhedron_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpolyhedron_geometry>;
+// template xw::xgenerator<xthree::xpolyhedron_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpolyhedron_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xring_buffer_geometry>;
+// template xw::xmaterialize<xthree::xring_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xring_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xring_buffer_geometry>;
+// template xw::xgenerator<xthree::xring_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xring_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xring_geometry>;
+// template xw::xmaterialize<xthree::xring_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xring_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xring_geometry>;
+// template xw::xgenerator<xthree::xring_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xring_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshape_geometry>;
+// template xw::xmaterialize<xthree::xshape_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshape_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshape_geometry>;
+// template xw::xgenerator<xthree::xshape_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshape_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xsphere_buffer_geometry>;
+// template xw::xmaterialize<xthree::xsphere_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xsphere_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xsphere_buffer_geometry>;
+// template xw::xgenerator<xthree::xsphere_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xsphere_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xsphere_geometry>;
+// template xw::xmaterialize<xthree::xsphere_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xsphere_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xsphere_geometry>;
+// template xw::xgenerator<xthree::xsphere_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xsphere_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtetrahedron_geometry>;
+// template xw::xmaterialize<xthree::xtetrahedron_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtetrahedron_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtetrahedron_geometry>;
+// template xw::xgenerator<xthree::xtetrahedron_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtetrahedron_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtext_geometry>;
+// template xw::xmaterialize<xthree::xtext_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtext_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtext_geometry>;
+// template xw::xgenerator<xthree::xtext_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtext_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtorus_buffer_geometry>;
+// template xw::xmaterialize<xthree::xtorus_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtorus_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtorus_buffer_geometry>;
+// template xw::xgenerator<xthree::xtorus_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtorus_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtorus_geometry>;
+// template xw::xmaterialize<xthree::xtorus_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtorus_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtorus_geometry>;
+// template xw::xgenerator<xthree::xtorus_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtorus_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtorus_knot_buffer_geometry>;
+// template xw::xmaterialize<xthree::xtorus_knot_buffer_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtorus_knot_buffer_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtorus_knot_buffer_geometry>;
+// template xw::xgenerator<xthree::xtorus_knot_buffer_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtorus_knot_buffer_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtorus_knot_geometry>;
+// template xw::xmaterialize<xthree::xtorus_knot_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtorus_knot_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtorus_knot_geometry>;
+// template xw::xgenerator<xthree::xtorus_knot_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtorus_knot_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtube_geometry>;
+// template xw::xmaterialize<xthree::xtube_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtube_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtube_geometry>;
+// template xw::xgenerator<xthree::xtube_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtube_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwireframe_geometry>;
+// template xw::xmaterialize<xthree::xwireframe_geometry>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwireframe_geometry>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwireframe_geometry>;
+// template xw::xgenerator<xthree::xwireframe_geometry>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwireframe_geometry>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xarrow_helper>;
+// template xw::xmaterialize<xthree::xarrow_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xarrow_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xarrow_helper>;
+// template xw::xgenerator<xthree::xarrow_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xarrow_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xaxes_helper>;
+// template xw::xmaterialize<xthree::xaxes_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xaxes_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xaxes_helper>;
+// template xw::xgenerator<xthree::xaxes_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xaxes_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox3helper>;
+// template xw::xmaterialize<xthree::xbox3helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox3helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox3helper>;
+// template xw::xgenerator<xthree::xbox3helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox3helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox_helper>;
+// template xw::xmaterialize<xthree::xbox_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox_helper>;
+// template xw::xgenerator<xthree::xbox_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcamera_helper>;
+// template xw::xmaterialize<xthree::xcamera_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcamera_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcamera_helper>;
+// template xw::xgenerator<xthree::xcamera_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcamera_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdirectional_light_helper>;
+// template xw::xmaterialize<xthree::xdirectional_light_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdirectional_light_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdirectional_light_helper>;
+// template xw::xgenerator<xthree::xdirectional_light_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdirectional_light_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xface_normals_helper>;
+// template xw::xmaterialize<xthree::xface_normals_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xface_normals_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xface_normals_helper>;
+// template xw::xgenerator<xthree::xface_normals_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xface_normals_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xgrid_helper>;
+// template xw::xmaterialize<xthree::xgrid_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xgrid_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xgrid_helper>;
+// template xw::xgenerator<xthree::xgrid_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xgrid_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xhemisphere_light_helper>;
+// template xw::xmaterialize<xthree::xhemisphere_light_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xhemisphere_light_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xhemisphere_light_helper>;
+// template xw::xgenerator<xthree::xhemisphere_light_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xhemisphere_light_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xplane_helper>;
+// template xw::xmaterialize<xthree::xplane_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xplane_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xplane_helper>;
+// template xw::xgenerator<xthree::xplane_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xplane_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpoint_light_helper>;
+// template xw::xmaterialize<xthree::xpoint_light_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpoint_light_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpoint_light_helper>;
+// template xw::xgenerator<xthree::xpoint_light_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpoint_light_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpolar_grid_helper>;
+// template xw::xmaterialize<xthree::xpolar_grid_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpolar_grid_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpolar_grid_helper>;
+// template xw::xgenerator<xthree::xpolar_grid_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpolar_grid_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xrect_area_light_helper>;
+// template xw::xmaterialize<xthree::xrect_area_light_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xrect_area_light_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xrect_area_light_helper>;
+// template xw::xgenerator<xthree::xrect_area_light_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xrect_area_light_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xskeleton_helper>;
+// template xw::xmaterialize<xthree::xskeleton_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xskeleton_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xskeleton_helper>;
+// template xw::xgenerator<xthree::xskeleton_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xskeleton_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xspot_light_helper>;
+// template xw::xmaterialize<xthree::xspot_light_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xspot_light_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xspot_light_helper>;
+// template xw::xgenerator<xthree::xspot_light_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xspot_light_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xvertex_normals_helper>;
+// template xw::xmaterialize<xthree::xvertex_normals_helper>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xvertex_normals_helper>>;
+// template class XTHREE_API xw::xgenerator<xthree::xvertex_normals_helper>;
+// template xw::xgenerator<xthree::xvertex_normals_helper>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xvertex_normals_helper>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xambient_light>;
+// template xw::xmaterialize<xthree::xambient_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xambient_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xambient_light>;
+// template xw::xgenerator<xthree::xambient_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xambient_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdirectional_light>;
+// template xw::xmaterialize<xthree::xdirectional_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdirectional_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdirectional_light>;
+// template xw::xgenerator<xthree::xdirectional_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdirectional_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdirectional_light_shadow>;
+// template xw::xmaterialize<xthree::xdirectional_light_shadow>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdirectional_light_shadow>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdirectional_light_shadow>;
+// template xw::xgenerator<xthree::xdirectional_light_shadow>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdirectional_light_shadow>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xhemisphere_light>;
+// template xw::xmaterialize<xthree::xhemisphere_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xhemisphere_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xhemisphere_light>;
+// template xw::xgenerator<xthree::xhemisphere_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xhemisphere_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlight>;
+// template xw::xmaterialize<xthree::xlight>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlight>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlight>;
+// template xw::xgenerator<xthree::xlight>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlight>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlight_shadow>;
+// template xw::xmaterialize<xthree::xlight_shadow>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlight_shadow>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlight_shadow>;
+// template xw::xgenerator<xthree::xlight_shadow>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlight_shadow>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpoint_light>;
+// template xw::xmaterialize<xthree::xpoint_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpoint_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpoint_light>;
+// template xw::xgenerator<xthree::xpoint_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpoint_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xrect_area_light>;
+// template xw::xmaterialize<xthree::xrect_area_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xrect_area_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xrect_area_light>;
+// template xw::xgenerator<xthree::xrect_area_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xrect_area_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xspot_light>;
+// template xw::xmaterialize<xthree::xspot_light>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xspot_light>>;
+// template class XTHREE_API xw::xgenerator<xthree::xspot_light>;
+// template xw::xgenerator<xthree::xspot_light>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xspot_light>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xspot_light_shadow>;
+// template xw::xmaterialize<xthree::xspot_light_shadow>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xspot_light_shadow>>;
+// template class XTHREE_API xw::xgenerator<xthree::xspot_light_shadow>;
+// template xw::xgenerator<xthree::xspot_light_shadow>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xspot_light_shadow>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xanimation_loader>;
+// template xw::xmaterialize<xthree::xanimation_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xanimation_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xanimation_loader>;
+// template xw::xgenerator<xthree::xanimation_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xanimation_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xaudio_loader>;
+// template xw::xmaterialize<xthree::xaudio_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xaudio_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xaudio_loader>;
+// template xw::xgenerator<xthree::xaudio_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xaudio_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbuffer_geometry_loader>;
+// template xw::xmaterialize<xthree::xbuffer_geometry_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbuffer_geometry_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbuffer_geometry_loader>;
+// template xw::xgenerator<xthree::xbuffer_geometry_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbuffer_geometry_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcache>;
+// template xw::xmaterialize<xthree::xcache>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcache>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcache>;
+// template xw::xgenerator<xthree::xcache>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcache>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcompressed_texture_loader>;
+// template xw::xmaterialize<xthree::xcompressed_texture_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcompressed_texture_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcompressed_texture_loader>;
+// template xw::xgenerator<xthree::xcompressed_texture_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcompressed_texture_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcube_texture_loader>;
+// template xw::xmaterialize<xthree::xcube_texture_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcube_texture_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcube_texture_loader>;
+// template xw::xgenerator<xthree::xcube_texture_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcube_texture_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdata_texture_loader>;
+// template xw::xmaterialize<xthree::xdata_texture_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdata_texture_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdata_texture_loader>;
+// template xw::xgenerator<xthree::xdata_texture_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdata_texture_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfile_loader>;
+// template xw::xmaterialize<xthree::xfile_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfile_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfile_loader>;
+// template xw::xgenerator<xthree::xfile_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfile_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfont_loader>;
+// template xw::xmaterialize<xthree::xfont_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfont_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfont_loader>;
+// template xw::xgenerator<xthree::xfont_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfont_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::ximage_loader>;
+// template xw::xmaterialize<xthree::ximage_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::ximage_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::ximage_loader>;
+// template xw::xgenerator<xthree::ximage_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::ximage_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xj_s_o_n_loader>;
+// template xw::xmaterialize<xthree::xj_s_o_n_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xj_s_o_n_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xj_s_o_n_loader>;
+// template xw::xgenerator<xthree::xj_s_o_n_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xj_s_o_n_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xloader>;
+// template xw::xmaterialize<xthree::xloader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xloader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xloader>;
+// template xw::xgenerator<xthree::xloader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xloader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xloading_manager>;
+// template xw::xmaterialize<xthree::xloading_manager>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xloading_manager>>;
+// template class XTHREE_API xw::xgenerator<xthree::xloading_manager>;
+// template xw::xgenerator<xthree::xloading_manager>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xloading_manager>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmaterial_loader>;
+// template xw::xmaterialize<xthree::xmaterial_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmaterial_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmaterial_loader>;
+// template xw::xgenerator<xthree::xmaterial_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmaterial_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xobject_loader>;
+// template xw::xmaterialize<xthree::xobject_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xobject_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xobject_loader>;
+// template xw::xgenerator<xthree::xobject_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xobject_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtexture_loader>;
+// template xw::xmaterialize<xthree::xtexture_loader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtexture_loader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtexture_loader>;
+// template xw::xgenerator<xthree::xtexture_loader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtexture_loader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_basic_material>;
+// template xw::xmaterialize<xthree::xline_basic_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_basic_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_basic_material>;
+// template xw::xgenerator<xthree::xline_basic_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_basic_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_dashed_material>;
+// template xw::xmaterialize<xthree::xline_dashed_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_dashed_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_dashed_material>;
+// template xw::xgenerator<xthree::xline_dashed_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_dashed_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmaterial>;
+// template xw::xmaterialize<xthree::xmaterial>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmaterial>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmaterial>;
+// template xw::xgenerator<xthree::xmaterial>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmaterial>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_basic_material>;
+// template xw::xmaterialize<xthree::xmesh_basic_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_basic_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_basic_material>;
+// template xw::xgenerator<xthree::xmesh_basic_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_basic_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_depth_material>;
+// template xw::xmaterialize<xthree::xmesh_depth_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_depth_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_depth_material>;
+// template xw::xgenerator<xthree::xmesh_depth_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_depth_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_lambert_material>;
+// template xw::xmaterialize<xthree::xmesh_lambert_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_lambert_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_lambert_material>;
+// template xw::xgenerator<xthree::xmesh_lambert_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_lambert_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_normal_material>;
+// template xw::xmaterialize<xthree::xmesh_normal_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_normal_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_normal_material>;
+// template xw::xgenerator<xthree::xmesh_normal_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_normal_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_phong_material>;
+// template xw::xmaterialize<xthree::xmesh_phong_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_phong_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_phong_material>;
+// template xw::xgenerator<xthree::xmesh_phong_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_phong_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_physical_material>;
+// template xw::xmaterialize<xthree::xmesh_physical_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_physical_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_physical_material>;
+// template xw::xgenerator<xthree::xmesh_physical_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_physical_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_standard_material>;
+// template xw::xmaterialize<xthree::xmesh_standard_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_standard_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_standard_material>;
+// template xw::xgenerator<xthree::xmesh_standard_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_standard_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh_toon_material>;
+// template xw::xmaterialize<xthree::xmesh_toon_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh_toon_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh_toon_material>;
+// template xw::xgenerator<xthree::xmesh_toon_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh_toon_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpoints_material>;
+// template xw::xmaterialize<xthree::xpoints_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpoints_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpoints_material>;
+// template xw::xgenerator<xthree::xpoints_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpoints_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xraw_shader_material>;
+// template xw::xmaterialize<xthree::xraw_shader_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xraw_shader_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xraw_shader_material>;
+// template xw::xgenerator<xthree::xraw_shader_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xraw_shader_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshader_material>;
+// template xw::xmaterialize<xthree::xshader_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshader_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshader_material>;
+// template xw::xgenerator<xthree::xshader_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshader_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshadow_material>;
+// template xw::xmaterialize<xthree::xshadow_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshadow_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshadow_material>;
+// template xw::xgenerator<xthree::xshadow_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshadow_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xsprite_material>;
+// template xw::xmaterialize<xthree::xsprite_material>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xsprite_material>>;
+// template class XTHREE_API xw::xgenerator<xthree::xsprite_material>;
+// template xw::xgenerator<xthree::xsprite_material>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xsprite_material>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox2>;
+// template xw::xmaterialize<xthree::xbox2>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox2>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox2>;
+// template xw::xgenerator<xthree::xbox2>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox2>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbox3>;
+// template xw::xmaterialize<xthree::xbox3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbox3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbox3>;
+// template xw::xgenerator<xthree::xbox3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbox3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcylindrical>;
+// template xw::xmaterialize<xthree::xcylindrical>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcylindrical>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcylindrical>;
+// template xw::xgenerator<xthree::xcylindrical>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcylindrical>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfrustum>;
+// template xw::xmaterialize<xthree::xfrustum>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfrustum>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfrustum>;
+// template xw::xgenerator<xthree::xfrustum>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfrustum>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xinterpolant>;
+// template xw::xmaterialize<xthree::xinterpolant>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xinterpolant>>;
+// template class XTHREE_API xw::xgenerator<xthree::xinterpolant>;
+// template xw::xgenerator<xthree::xinterpolant>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xinterpolant>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline3>;
+// template xw::xmaterialize<xthree::xline3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline3>;
+// template xw::xgenerator<xthree::xline3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmath>;
+// template xw::xmaterialize<xthree::xmath>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmath>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmath>;
+// template xw::xgenerator<xthree::xmath>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmath>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xplane>;
+// template xw::xmaterialize<xthree::xplane>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xplane>>;
+// template class XTHREE_API xw::xgenerator<xthree::xplane>;
+// template xw::xgenerator<xthree::xplane>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xplane>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xquaternion>;
+// template xw::xmaterialize<xthree::xquaternion>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xquaternion>>;
+// template class XTHREE_API xw::xgenerator<xthree::xquaternion>;
+// template xw::xgenerator<xthree::xquaternion>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xquaternion>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xray>;
+// template xw::xmaterialize<xthree::xray>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xray>>;
+// template class XTHREE_API xw::xgenerator<xthree::xray>;
+// template xw::xgenerator<xthree::xray>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xray>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xsphere>;
+// template xw::xmaterialize<xthree::xsphere>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xsphere>>;
+// template class XTHREE_API xw::xgenerator<xthree::xsphere>;
+// template xw::xgenerator<xthree::xsphere>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xsphere>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xspherical>;
+// template xw::xmaterialize<xthree::xspherical>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xspherical>>;
+// template class XTHREE_API xw::xgenerator<xthree::xspherical>;
+// template xw::xgenerator<xthree::xspherical>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xspherical>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtriangle>;
+// template xw::xmaterialize<xthree::xtriangle>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtriangle>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtriangle>;
+// template xw::xgenerator<xthree::xtriangle>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtriangle>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xblackbox>;
+// template xw::xmaterialize<xthree::xblackbox>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xblackbox>>;
+// template class XTHREE_API xw::xgenerator<xthree::xblackbox>;
+// template xw::xgenerator<xthree::xblackbox>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xblackbox>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xbone>;
+// template xw::xmaterialize<xthree::xbone>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xbone>>;
+// template class XTHREE_API xw::xgenerator<xthree::xbone>;
+// template xw::xgenerator<xthree::xbone>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xbone>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xclone_array>;
+// template xw::xmaterialize<xthree::xclone_array>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xclone_array>>;
+// template class XTHREE_API xw::xgenerator<xthree::xclone_array>;
+// template xw::xgenerator<xthree::xclone_array>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xclone_array>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xgroup>;
+// template xw::xmaterialize<xthree::xgroup>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xgroup>>;
+// template class XTHREE_API xw::xgenerator<xthree::xgroup>;
+// template xw::xgenerator<xthree::xgroup>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xgroup>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xl_o_d>;
+// template xw::xmaterialize<xthree::xl_o_d>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xl_o_d>>;
+// template class XTHREE_API xw::xgenerator<xthree::xl_o_d>;
+// template xw::xgenerator<xthree::xl_o_d>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xl_o_d>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlens_flare>;
+// template xw::xmaterialize<xthree::xlens_flare>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlens_flare>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlens_flare>;
+// template xw::xgenerator<xthree::xlens_flare>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlens_flare>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline>;
+// template xw::xmaterialize<xthree::xline>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline>;
+// template xw::xgenerator<xthree::xline>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_loop>;
+// template xw::xmaterialize<xthree::xline_loop>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_loop>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_loop>;
+// template xw::xgenerator<xthree::xline_loop>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_loop>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_segments>;
+// template xw::xmaterialize<xthree::xline_segments>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_segments>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_segments>;
+// template xw::xgenerator<xthree::xline_segments>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_segments>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xmesh>;
+// template xw::xmaterialize<xthree::xmesh>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xmesh>>;
+// template class XTHREE_API xw::xgenerator<xthree::xmesh>;
+// template xw::xgenerator<xthree::xmesh>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xmesh>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpoints>;
+// template xw::xmaterialize<xthree::xpoints>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpoints>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpoints>;
+// template xw::xgenerator<xthree::xpoints>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpoints>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xskeleton>;
+// template xw::xmaterialize<xthree::xskeleton>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xskeleton>>;
+// template class XTHREE_API xw::xgenerator<xthree::xskeleton>;
+// template xw::xgenerator<xthree::xskeleton>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xskeleton>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xskinned_mesh>;
+// template xw::xmaterialize<xthree::xskinned_mesh>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xskinned_mesh>>;
+// template class XTHREE_API xw::xgenerator<xthree::xskinned_mesh>;
+// template xw::xgenerator<xthree::xskinned_mesh>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xskinned_mesh>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xsprite>;
+// template xw::xmaterialize<xthree::xsprite>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xsprite>>;
+// template class XTHREE_API xw::xgenerator<xthree::xsprite>;
+// template xw::xgenerator<xthree::xsprite>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xsprite>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_render_target>;
+// template xw::xmaterialize<xthree::xwebgl_render_target>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_render_target>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_render_target>;
+// template xw::xgenerator<xthree::xwebgl_render_target>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_render_target>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_render_target_cube>;
+// template xw::xmaterialize<xthree::xwebgl_render_target_cube>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_render_target_cube>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_render_target_cube>;
+// template xw::xgenerator<xthree::xwebgl_render_target_cube>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_render_target_cube>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfog>;
+// template xw::xmaterialize<xthree::xfog>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfog>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfog>;
+// template xw::xgenerator<xthree::xfog>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfog>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfog_exp2>;
+// template xw::xmaterialize<xthree::xfog_exp2>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfog_exp2>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfog_exp2>;
+// template xw::xgenerator<xthree::xfog_exp2>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfog_exp2>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xscene>;
+// template xw::xmaterialize<xthree::xscene>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xscene>>;
+// template class XTHREE_API xw::xgenerator<xthree::xscene>;
+// template xw::xgenerator<xthree::xscene>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xscene>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcompressed_texture>;
+// template xw::xmaterialize<xthree::xcompressed_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcompressed_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcompressed_texture>;
+// template xw::xgenerator<xthree::xcompressed_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcompressed_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcube_texture>;
+// template xw::xmaterialize<xthree::xcube_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcube_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcube_texture>;
+// template xw::xgenerator<xthree::xcube_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcube_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdata_texture>;
+// template xw::xmaterialize<xthree::xdata_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdata_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdata_texture>;
+// template xw::xgenerator<xthree::xdata_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdata_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdepth_texture>;
+// template xw::xmaterialize<xthree::xdepth_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdepth_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdepth_texture>;
+// template xw::xgenerator<xthree::xdepth_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdepth_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::ximage_texture>;
+// template xw::xmaterialize<xthree::ximage_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::ximage_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::ximage_texture>;
+// template xw::xgenerator<xthree::ximage_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::ximage_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtext_texture>;
+// template xw::xmaterialize<xthree::xtext_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtext_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtext_texture>;
+// template xw::xgenerator<xthree::xtext_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtext_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xtexture>;
+// template xw::xmaterialize<xthree::xtexture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xtexture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xtexture>;
+// template xw::xgenerator<xthree::xtexture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xtexture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xvideo_texture>;
+// template xw::xmaterialize<xthree::xvideo_texture>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xvideo_texture>>;
+// template class XTHREE_API xw::xgenerator<xthree::xvideo_texture>;
+// template xw::xgenerator<xthree::xvideo_texture>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xvideo_texture>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xboolean_keyframe_track>;
+// template xw::xmaterialize<xthree::xboolean_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xboolean_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xboolean_keyframe_track>;
+// template xw::xgenerator<xthree::xboolean_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xboolean_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcolor_keyframe_track>;
+// template xw::xmaterialize<xthree::xcolor_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcolor_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcolor_keyframe_track>;
+// template xw::xgenerator<xthree::xcolor_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcolor_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xnumber_keyframe_track>;
+// template xw::xmaterialize<xthree::xnumber_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xnumber_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xnumber_keyframe_track>;
+// template xw::xgenerator<xthree::xnumber_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xnumber_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xquaternion_keyframe_track>;
+// template xw::xmaterialize<xthree::xquaternion_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xquaternion_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xquaternion_keyframe_track>;
+// template xw::xgenerator<xthree::xquaternion_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xquaternion_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xstring_keyframe_track>;
+// template xw::xmaterialize<xthree::xstring_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xstring_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xstring_keyframe_track>;
+// template xw::xgenerator<xthree::xstring_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xstring_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xvector_keyframe_track>;
+// template xw::xmaterialize<xthree::xvector_keyframe_track>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xvector_keyframe_track>>;
+// template class XTHREE_API xw::xgenerator<xthree::xvector_keyframe_track>;
+// template xw::xgenerator<xthree::xvector_keyframe_track>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xvector_keyframe_track>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcurve>;
+// template xw::xmaterialize<xthree::xcurve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcurve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcurve>;
+// template xw::xgenerator<xthree::xcurve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcurve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcurve_path>;
+// template xw::xmaterialize<xthree::xcurve_path>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcurve_path>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcurve_path>;
+// template xw::xgenerator<xthree::xcurve_path>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcurve_path>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xfont>;
+// template xw::xmaterialize<xthree::xfont>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xfont>>;
+// template class XTHREE_API xw::xgenerator<xthree::xfont>;
+// template xw::xgenerator<xthree::xfont>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xfont>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xpath>;
+// template xw::xmaterialize<xthree::xpath>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xpath>>;
+// template class XTHREE_API xw::xgenerator<xthree::xpath>;
+// template xw::xgenerator<xthree::xpath>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xpath>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshape>;
+// template xw::xmaterialize<xthree::xshape>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshape>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshape>;
+// template xw::xgenerator<xthree::xshape>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshape>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xshape_path>;
+// template xw::xmaterialize<xthree::xshape_path>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xshape_path>>;
+// template class XTHREE_API xw::xgenerator<xthree::xshape_path>;
+// template xw::xgenerator<xthree::xshape_path>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xshape_path>>;
+// template class XTHREE_API xw::xmaterialize<xthree::ximmediate_render_object>;
+// template xw::xmaterialize<xthree::ximmediate_render_object>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::ximmediate_render_object>>;
+// template class XTHREE_API xw::xgenerator<xthree::ximmediate_render_object>;
+// template xw::xgenerator<xthree::ximmediate_render_object>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::ximmediate_render_object>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xarc_curve>;
+// template xw::xmaterialize<xthree::xarc_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xarc_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xarc_curve>;
+// template xw::xgenerator<xthree::xarc_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xarc_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcatmull_rom_curve3>;
+// template xw::xmaterialize<xthree::xcatmull_rom_curve3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcatmull_rom_curve3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcatmull_rom_curve3>;
+// template xw::xgenerator<xthree::xcatmull_rom_curve3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcatmull_rom_curve3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcubic_bezier_curve3>;
+// template xw::xmaterialize<xthree::xcubic_bezier_curve3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcubic_bezier_curve3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcubic_bezier_curve3>;
+// template xw::xgenerator<xthree::xcubic_bezier_curve3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcubic_bezier_curve3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcubic_bezier_curve>;
+// template xw::xmaterialize<xthree::xcubic_bezier_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcubic_bezier_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcubic_bezier_curve>;
+// template xw::xgenerator<xthree::xcubic_bezier_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcubic_bezier_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xellipse_curve>;
+// template xw::xmaterialize<xthree::xellipse_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xellipse_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xellipse_curve>;
+// template xw::xgenerator<xthree::xellipse_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xellipse_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_curve3>;
+// template xw::xmaterialize<xthree::xline_curve3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_curve3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_curve3>;
+// template xw::xgenerator<xthree::xline_curve3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_curve3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xline_curve>;
+// template xw::xmaterialize<xthree::xline_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xline_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xline_curve>;
+// template xw::xgenerator<xthree::xline_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xline_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xquadratic_bezier_curve3>;
+// template xw::xmaterialize<xthree::xquadratic_bezier_curve3>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xquadratic_bezier_curve3>>;
+// template class XTHREE_API xw::xgenerator<xthree::xquadratic_bezier_curve3>;
+// template xw::xgenerator<xthree::xquadratic_bezier_curve3>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xquadratic_bezier_curve3>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xquadratic_bezier_curve>;
+// template xw::xmaterialize<xthree::xquadratic_bezier_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xquadratic_bezier_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xquadratic_bezier_curve>;
+// template xw::xgenerator<xthree::xquadratic_bezier_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xquadratic_bezier_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xspline_curve>;
+// template xw::xmaterialize<xthree::xspline_curve>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xspline_curve>>;
+// template class XTHREE_API xw::xgenerator<xthree::xspline_curve>;
+// template xw::xgenerator<xthree::xspline_curve>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xspline_curve>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xcubic_interpolant>;
+// template xw::xmaterialize<xthree::xcubic_interpolant>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xcubic_interpolant>>;
+// template class XTHREE_API xw::xgenerator<xthree::xcubic_interpolant>;
+// template xw::xgenerator<xthree::xcubic_interpolant>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xcubic_interpolant>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xdiscrete_interpolant>;
+// template xw::xmaterialize<xthree::xdiscrete_interpolant>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xdiscrete_interpolant>>;
+// template class XTHREE_API xw::xgenerator<xthree::xdiscrete_interpolant>;
+// template xw::xgenerator<xthree::xdiscrete_interpolant>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xdiscrete_interpolant>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xlinear_interpolant>;
+// template xw::xmaterialize<xthree::xlinear_interpolant>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xlinear_interpolant>>;
+// template class XTHREE_API xw::xgenerator<xthree::xlinear_interpolant>;
+// template xw::xgenerator<xthree::xlinear_interpolant>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xlinear_interpolant>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xquaternion_linear_interpolant>;
+// template xw::xmaterialize<xthree::xquaternion_linear_interpolant>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xquaternion_linear_interpolant>>;
+// template class XTHREE_API xw::xgenerator<xthree::xquaternion_linear_interpolant>;
+// template xw::xgenerator<xthree::xquaternion_linear_interpolant>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xquaternion_linear_interpolant>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_buffer_renderer>;
+// template xw::xmaterialize<xthree::xwebgl_buffer_renderer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_buffer_renderer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_buffer_renderer>;
+// template xw::xgenerator<xthree::xwebgl_buffer_renderer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_buffer_renderer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_capabilities>;
+// template xw::xmaterialize<xthree::xwebgl_capabilities>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_capabilities>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_capabilities>;
+// template xw::xgenerator<xthree::xwebgl_capabilities>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_capabilities>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_extensions>;
+// template xw::xmaterialize<xthree::xwebgl_extensions>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_extensions>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_extensions>;
+// template xw::xgenerator<xthree::xwebgl_extensions>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_extensions>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_geometries>;
+// template xw::xmaterialize<xthree::xwebgl_geometries>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_geometries>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_geometries>;
+// template xw::xgenerator<xthree::xwebgl_geometries>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_geometries>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_indexed_buffer_renderer>;
+// template xw::xmaterialize<xthree::xwebgl_indexed_buffer_renderer>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_indexed_buffer_renderer>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_indexed_buffer_renderer>;
+// template xw::xgenerator<xthree::xwebgl_indexed_buffer_renderer>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_indexed_buffer_renderer>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_lights>;
+// template xw::xmaterialize<xthree::xwebgl_lights>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_lights>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_lights>;
+// template xw::xgenerator<xthree::xwebgl_lights>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_lights>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_objects>;
+// template xw::xmaterialize<xthree::xwebgl_objects>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_objects>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_objects>;
+// template xw::xgenerator<xthree::xwebgl_objects>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_objects>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_program>;
+// template xw::xmaterialize<xthree::xwebgl_program>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_program>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_program>;
+// template xw::xgenerator<xthree::xwebgl_program>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_program>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_programs>;
+// template xw::xmaterialize<xthree::xwebgl_programs>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_programs>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_programs>;
+// template xw::xgenerator<xthree::xwebgl_programs>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_programs>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_properties>;
+// template xw::xmaterialize<xthree::xwebgl_properties>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_properties>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_properties>;
+// template xw::xgenerator<xthree::xwebgl_properties>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_properties>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_shader>;
+// template xw::xmaterialize<xthree::xwebgl_shader>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_shader>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_shader>;
+// template xw::xgenerator<xthree::xwebgl_shader>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_shader>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_shadow_map>;
+// template xw::xmaterialize<xthree::xwebgl_shadow_map>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_shadow_map>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_shadow_map>;
+// template xw::xgenerator<xthree::xwebgl_shadow_map>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_shadow_map>>;
+// template class XTHREE_API xw::xmaterialize<xthree::xwebgl_state>;
+// template xw::xmaterialize<xthree::xwebgl_state>::xmaterialize();
+// template class XTHREE_API xw::xtransport<xw::xmaterialize<xthree::xwebgl_state>>;
+// template class XTHREE_API xw::xgenerator<xthree::xwebgl_state>;
+// template xw::xgenerator<xthree::xwebgl_state>::xgenerator();
+// template class XTHREE_API xw::xtransport<xw::xgenerator<xthree::xwebgl_state>>;

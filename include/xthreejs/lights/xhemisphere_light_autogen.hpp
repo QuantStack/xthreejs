@@ -84,8 +84,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xhemisphere_light));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xhemisphere_light>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xhemisphere_light>>;
+    extern template class xw::xgenerator<xthree::xhemisphere_light>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xhemisphere_light>>;
+#endif
+
 #endif

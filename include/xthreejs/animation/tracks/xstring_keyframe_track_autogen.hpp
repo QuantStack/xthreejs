@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xstring_keyframe_track));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xstring_keyframe_track>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xstring_keyframe_track>>;
+    extern template class xw::xgenerator<xthree::xstring_keyframe_track>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xstring_keyframe_track>>;
+#endif
+
 #endif

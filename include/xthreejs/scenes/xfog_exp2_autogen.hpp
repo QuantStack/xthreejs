@@ -90,8 +90,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xfog_exp2));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xfog_exp2>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xfog_exp2>>;
+    extern template class xw::xgenerator<xthree::xfog_exp2>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xfog_exp2>>;
+#endif
+
 #endif

@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xevent_dispatcher));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xevent_dispatcher>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xevent_dispatcher>>;
+    extern template class xw::xgenerator<xthree::xevent_dispatcher>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xevent_dispatcher>>;
+#endif
+
 #endif

@@ -81,8 +81,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xcatmull_rom_curve3));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xcatmull_rom_curve3>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xcatmull_rom_curve3>>;
+    extern template class xw::xgenerator<xthree::xcatmull_rom_curve3>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xcatmull_rom_curve3>>;
+#endif
+
 #endif

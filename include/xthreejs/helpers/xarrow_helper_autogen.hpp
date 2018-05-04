@@ -99,8 +99,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xarrow_helper));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xarrow_helper>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xarrow_helper>>;
+    extern template class xw::xgenerator<xthree::xarrow_helper>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xarrow_helper>>;
+#endif
+
 #endif

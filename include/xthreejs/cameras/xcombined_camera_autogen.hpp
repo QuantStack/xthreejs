@@ -111,8 +111,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xcombined_camera));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xcombined_camera>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xcombined_camera>>;
+    extern template class xw::xgenerator<xthree::xcombined_camera>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xcombined_camera>>;
+#endif
+
 #endif

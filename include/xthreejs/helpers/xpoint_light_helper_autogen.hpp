@@ -90,8 +90,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xpoint_light_helper));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xpoint_light_helper>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xpoint_light_helper>>;
+    extern template class xw::xgenerator<xthree::xpoint_light_helper>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xpoint_light_helper>>;
+#endif
+
 #endif

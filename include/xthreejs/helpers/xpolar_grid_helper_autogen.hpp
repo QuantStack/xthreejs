@@ -99,8 +99,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xpolar_grid_helper));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xpolar_grid_helper>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xpolar_grid_helper>>;
+    extern template class xw::xgenerator<xthree::xpolar_grid_helper>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xpolar_grid_helper>>;
+#endif
+
 #endif

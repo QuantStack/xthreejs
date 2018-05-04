@@ -99,8 +99,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xtorus_knot_buffer_geometry));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xtorus_knot_buffer_geometry>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xtorus_knot_buffer_geometry>>;
+    extern template class xw::xgenerator<xthree::xtorus_knot_buffer_geometry>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xtorus_knot_buffer_geometry>>;
+#endif
+
 #endif

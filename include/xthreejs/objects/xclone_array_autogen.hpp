@@ -90,8 +90,15 @@ namespace xthree
     }
 }
 
-//namespace xw
-//{
-//    XPRECOMPILE(EXTERN, (xthree::xclone_array));
-//}
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifndef _WIN32
+    extern template class xw::xmaterialize<xthree::xclone_array>;
+    extern template class xw::xtransport<xw::xmaterialize<xthree::xclone_array>>;
+    extern template class xw::xgenerator<xthree::xclone_array>;
+    extern template class xw::xtransport<xw::xgenerator<xthree::xclone_array>>;
+#endif
+
 #endif
