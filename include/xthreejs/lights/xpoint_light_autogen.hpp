@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xlight_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xlight<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -31,6 +35,7 @@ namespace xthree
         XPROPERTY(double, derived_type, distance, 0);
         XPROPERTY(double, derived_type, decay, 1);
         XPROPERTY(xw::xholder<xthree_widget>, derived_type, shadow, object3d());
+
 
     protected:
 
@@ -49,6 +54,7 @@ namespace xthree
     //
     // point_light implementation
     //
+
 
     template <class D>
     inline void xpoint_light<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

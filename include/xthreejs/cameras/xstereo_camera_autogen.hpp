@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../base/xthree.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -31,6 +35,7 @@ namespace xthree
         XPROPERTY(double, derived_type, eyeSep, 0.064);
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, cameraL);
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, cameraR);
+
 
     protected:
 
@@ -49,6 +54,7 @@ namespace xthree
     //
     // stereo_camera implementation
     //
+
 
     template <class D>
     inline void xstereo_camera<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

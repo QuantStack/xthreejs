@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xmaterial_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xmaterial<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -42,6 +46,7 @@ namespace xthree
         XPROPERTY(bool, derived_type, wireframe, false);
         XPROPERTY(double, derived_type, wireframeLinewidth, 1);
 
+
     protected:
 
         xshader_material();
@@ -59,6 +64,7 @@ namespace xthree
     //
     // shader_material implementation
     //
+
 
     template <class D>
     inline void xshader_material<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

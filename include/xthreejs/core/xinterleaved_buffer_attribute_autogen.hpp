@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../base/xthree.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -31,6 +35,7 @@ namespace xthree
         XPROPERTY(int, derived_type, itemSize, 0);
         XPROPERTY(int, derived_type, offset, 0);
         XPROPERTY(bool, derived_type, normalized, true);
+
 
     protected:
 
@@ -49,6 +54,7 @@ namespace xthree
     //
     // interleaved_buffer_attribute implementation
     //
+
 
     template <class D>
     inline void xinterleaved_buffer_attribute<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

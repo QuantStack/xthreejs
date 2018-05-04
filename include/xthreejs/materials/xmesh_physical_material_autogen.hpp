@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xmesh_standard_material_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xmesh_standard_material<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -31,6 +35,7 @@ namespace xthree
         XPROPERTY(double, derived_type, clearCoatRoughness, 0);
         XPROPERTY(xtl::xoptional<::xeus::xjson>, derived_type, defines, ::xeus::xjson::parse(R"({"PHYSICAL":""})"));
         XPROPERTY(double, derived_type, reflectivity, 0.5);
+
 
     protected:
 
@@ -49,6 +54,7 @@ namespace xthree
     //
     // mesh_physical_material implementation
     //
+
 
     template <class D>
     inline void xmesh_physical_material<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

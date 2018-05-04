@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../core/xobject3d.hpp"
@@ -23,12 +26,14 @@ namespace xthree
 
         using base_type = xobject3d<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(matrix4, derived_type, matrixWorldInverse, matrix4({1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}));
         XPROPERTY(matrix4, derived_type, projectionMatrix, matrix4({1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}));
+
 
     protected:
 
@@ -47,6 +52,7 @@ namespace xthree
     //
     // camera implementation
     //
+
 
     template <class D>
     inline void xcamera<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

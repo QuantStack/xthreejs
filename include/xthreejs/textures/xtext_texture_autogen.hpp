@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xtexture_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xtexture<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -32,6 +36,7 @@ namespace xthree
         XPROPERTY(int, derived_type, size, 12);
         XPROPERTY(std::string, derived_type, string, "");
         XPROPERTY(bool, derived_type, squareTexture, true);
+
 
     protected:
 
@@ -50,6 +55,7 @@ namespace xthree
     //
     // text_texture implementation
     //
+
 
     template <class D>
     inline void xtext_texture<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

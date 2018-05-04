@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../base/xthree.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -30,6 +34,7 @@ namespace xthree
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, rootObject);
         XPROPERTY(double, derived_type, time, 0);
         XPROPERTY(double, derived_type, timeScale, 1);
+
 
     protected:
 
@@ -48,6 +53,7 @@ namespace xthree
     //
     // animation_mixer implementation
     //
+
 
     template <class D>
     inline void xanimation_mixer<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

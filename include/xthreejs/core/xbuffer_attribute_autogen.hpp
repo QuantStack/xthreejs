@@ -6,12 +6,12 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../base/xthree.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 namespace xthree
 {
@@ -26,12 +26,12 @@ namespace xthree
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
-        using array_type = xt::xtensor<float, 2>;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
-        XPROPERTY(array_type, derived_type, array);
+        XPROPERTY(buffer_type, derived_type, array);
         XPROPERTY(bool, derived_type, dynamic, false);
         XPROPERTY(bool, derived_type, needsUpdate, false);
         XPROPERTY(bool, derived_type, normalized, true);
@@ -57,10 +57,16 @@ namespace xthree
     // buffer_attribute implementation
     //
 
+    //
+    // buffer_attribute implementation
+    //
+
     template <class D>
-    inline const std::vector<xw::xjson_path_type>& xbuffer_attribute<D>::buffer_paths() const
+    inline const std::vector<xw::xjson_path_type>&  xbuffer_attribute<D>::buffer_paths() const
     {
-        static const std::vector<xw::xjson_path_type> default_buffer_paths = {{"array", "buffer"}};
+        static const std::vector<xw::xjson_path_type> default_buffer_paths = { 
+            { "array", "buffer" },
+        };
         return default_buffer_paths;
     }
 
@@ -85,14 +91,11 @@ namespace xthree
         using value_type = typename decltype(buffer_attribute::array)::value_type;
         std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
         const auto& buffer = buffers[index];
-        property = xt::adapt(//reinterpret_cast<float*>(buffer.data()),
-                             const_cast<float*>(static_cast<const float*>(buffer.data())),
+        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
                              buffer.size() / 4, xt::no_ownership(),
-                             xt::layout_type::row_major,
-                             std::vector<std::size_t>{2});
+                             std::array<std::size_t, 1>{2});
     }
-
-
+    
     inline void set_patch_from_property(const decltype(buffer_attribute_generator::array)& property,
                                         xeus::xjson& patch,
                                         xeus::buffer_sequence& buffers)
@@ -111,11 +114,12 @@ namespace xthree
                                         const xeus::xjson& patch,
                                         const xeus::buffer_sequence& buffers)
     {
-        // using value_type = typename decltype(buffer_attribute::array)::value_type;
-        // std::size_t index = buffer_index(patch[property.name()].template get<std::string>());
-        // const auto& value_buffer = buffers[index];
-        // const char* value_buf = value_buffer.data<const char>();
-        // property = value_type(value_buf, value_buf + value_buffer.size());
+        using value_type = typename decltype(buffer_attribute_generator::array)::value_type;
+        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
+        const auto& buffer = buffers[index];
+        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
+                             buffer.size() / 4, xt::no_ownership(),
+                             std::array<std::size_t, 1>{2});
     }
 
     template <class D>

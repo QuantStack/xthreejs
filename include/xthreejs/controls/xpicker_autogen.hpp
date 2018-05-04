@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xcontrols_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xcontrols<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -41,6 +45,7 @@ namespace xthree
         XPROPERTY(vector2, derived_type, uv, vector2({0,0}));
         XPROPERTY(std::vector<double>, derived_type, indices, std::vector<double>({}));
 
+
     protected:
 
         xpicker();
@@ -58,6 +63,7 @@ namespace xthree
     //
     // picker implementation
     //
+
 
     template <class D>
     inline void xpicker<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

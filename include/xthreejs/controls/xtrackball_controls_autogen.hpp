@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xcontrols_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xcontrols<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -41,6 +45,7 @@ namespace xthree
         XPROPERTY(bool, derived_type, noRoll, false);
         XPROPERTY(vector3, derived_type, target, vector3({0,0,0}));
 
+
     protected:
 
         xtrackball_controls();
@@ -58,6 +63,7 @@ namespace xthree
     //
     // trackball_controls implementation
     //
+
 
     template <class D>
     inline void xtrackball_controls<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

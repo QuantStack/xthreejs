@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xlight_autogen.hpp"
@@ -23,9 +26,11 @@ namespace xthree
 
         using base_type = xlight<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
+
 
 
     protected:
@@ -45,6 +50,7 @@ namespace xthree
     //
     // rect_area_light implementation
     //
+
 
     template <class D>
     inline void xrect_area_light<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

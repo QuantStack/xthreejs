@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xcamera_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xcamera<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -34,6 +38,7 @@ namespace xthree
         XPROPERTY(double, derived_type, bottom, 0);
         XPROPERTY(double, derived_type, near, 0.1);
         XPROPERTY(double, derived_type, far, 2000);
+
 
     protected:
 
@@ -52,6 +57,7 @@ namespace xthree
     //
     // orthographic_camera implementation
     //
+
 
     template <class D>
     inline void xorthographic_camera<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../core/xobject3d.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xobject3d<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -31,6 +35,7 @@ namespace xthree
         XPROPERTY(xw::xholder<xthree_widget>, derived_type, geometry);
         XPROPERTY(std::string, derived_type, drawMode, "TrianglesDrawMode", xenums::DrawModes);
         XPROPERTY(std::vector<double>, derived_type, morphTargetInfluences, std::vector<double>({}));
+
 
     protected:
 
@@ -49,6 +54,7 @@ namespace xthree
     //
     // mesh implementation
     //
+
 
     template <class D>
     inline void xmesh<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

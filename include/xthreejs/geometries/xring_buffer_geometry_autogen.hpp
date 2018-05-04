@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../core/xbase_buffer_geometry_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xbase_buffer_geometry<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -33,6 +37,7 @@ namespace xthree
         XPROPERTY(int, derived_type, phiSegments, 8);
         XPROPERTY(double, derived_type, thetaStart, 0);
         XPROPERTY(double, derived_type, thetaLength, 6.283185307179586);
+
 
     protected:
 
@@ -51,6 +56,7 @@ namespace xthree
     //
     // ring_buffer_geometry implementation
     //
+
 
     template <class D>
     inline void xring_buffer_geometry<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

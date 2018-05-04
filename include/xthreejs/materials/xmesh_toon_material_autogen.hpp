@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xmesh_phong_material_autogen.hpp"
@@ -23,11 +26,13 @@ namespace xthree
 
         using base_type = xmesh_phong_material<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, gradientMap);
+
 
     protected:
 
@@ -46,6 +51,7 @@ namespace xthree
     //
     // mesh_toon_material implementation
     //
+
 
     template <class D>
     inline void xmesh_toon_material<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const

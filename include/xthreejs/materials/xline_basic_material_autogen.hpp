@@ -6,6 +6,9 @@
 #include "xwidgets/xwidget.hpp"
 #include "xwidgets/xprecompiled_macros.hpp"
 
+#include "xtensor/xtensor.hpp"
+#include "xtensor/xadapt.hpp"
+
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xmaterial_autogen.hpp"
@@ -23,6 +26,7 @@ namespace xthree
 
         using base_type = xmaterial<D>;
         using derived_type = D;
+        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -32,6 +36,7 @@ namespace xthree
         XPROPERTY(double, derived_type, linewidth, 1);
         XPROPERTY(std::string, derived_type, linecap, "round");
         XPROPERTY(std::string, derived_type, linejoin, "round");
+
 
     protected:
 
@@ -50,6 +55,7 @@ namespace xthree
     //
     // line_basic_material implementation
     //
+
 
     template <class D>
     inline void xline_basic_material<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
