@@ -1,32 +1,28 @@
-#ifndef XTHREE_PLANE_HPP
-#define XTHREE_PLANE_HPP
+#ifndef XTHREE_PLANE_BASE_HPP
+#define XTHREE_PLANE_BASE_HPP
 
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../base/xthree.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
     //
-    // plane declaration
+    // plane_base declaration
     //
 
     template<class D>
-    class xplane : public xthree_widget<D>
+    class xplane_base : public xthree_widget<D>
     {
     public:
 
         using base_type = xthree_widget<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -35,9 +31,11 @@ namespace xthree
         XPROPERTY(double, derived_type, constant, 0);
 
 
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
+
     protected:
 
-        xplane();
+        xplane_base();
         using base_type::base_type;
         
     private:
@@ -45,17 +43,17 @@ namespace xthree
         void set_defaults();
     };
 
-    using plane = xw::xmaterialize<xplane>;
+    using plane_base = xw::xmaterialize<xplane_base>;
 
-    using plane_generator = xw::xgenerator<xplane>;
+    using plane_base_generator = xw::xgenerator<xplane_base>;
 
     //
-    // plane implementation
+    // plane_base implementation
     //
 
 
     template <class D>
-    inline void xplane<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
+    inline void xplane_base<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
@@ -64,7 +62,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xplane<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
+    inline void xplane_base<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
         base_type::apply_patch(patch, buffers);
 
@@ -73,17 +71,24 @@ namespace xthree
     }
 
     template <class D>
-    inline xplane<D>::xplane()
+    inline xplane_base<D>::xplane_base()
         : base_type()
     {
         set_defaults();
     }
 
     template <class D>
-    inline void xplane<D>::set_defaults()
+    inline void xplane_base<D>::set_defaults()
     {
-        this->_model_name() = "PlaneModel";
+        this->_model_name() = "PlaneBaseModel";
         this->_view_name() = "";
+    }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xplane_base>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
     }
 }
 
@@ -91,11 +96,15 @@ namespace xthree
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xplane>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xplane>>;
-    extern template class xw::xgenerator<xthree::xplane>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xplane>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xplane_base>;
+        extern template xw::xmaterialize<xthree::xplane_base>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xplane_base>>;
+        extern template class xw::xgenerator<xthree::xplane_base>;
+        extern template xw::xgenerator<xthree::xplane_base>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xplane_base>>;
+    #endif
 #endif
 
 #endif

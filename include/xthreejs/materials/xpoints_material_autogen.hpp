@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
-#include "xmaterial_autogen.hpp"
+#include "xmaterial.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,7 +23,6 @@ namespace xthree
 
         using base_type = xmaterial<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -37,6 +33,8 @@ namespace xthree
         XPROPERTY(double, derived_type, size, 1);
         XPROPERTY(bool, derived_type, sizeAttenuation, true);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -94,17 +92,28 @@ namespace xthree
         this->_model_name() = "PointsMaterialModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xpoints_material>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xpoints_material>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xpoints_material>>;
-    extern template class xw::xgenerator<xthree::xpoints_material>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xpoints_material>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xpoints_material>;
+        extern template xw::xmaterialize<xthree::xpoints_material>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xpoints_material>>;
+        extern template class xw::xgenerator<xthree::xpoints_material>;
+        extern template xw::xgenerator<xthree::xpoints_material>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xpoints_material>>;
+    #endif
 #endif
 
 #endif

@@ -5,7 +5,7 @@
 
 namespace xthree
 {
-    auto xuniform_lib = R"(
+    static auto xuniform_lib = R"(
 {
     "common": {
         "diffuse": {

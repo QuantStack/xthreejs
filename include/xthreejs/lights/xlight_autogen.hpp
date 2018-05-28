@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../core/xobject3d.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,7 +23,6 @@ namespace xthree
 
         using base_type = xobject3d<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -34,6 +30,8 @@ namespace xthree
         XPROPERTY(xw::html_color, derived_type, color, "#ffffff");
         XPROPERTY(double, derived_type, intensity, 1);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -85,17 +83,28 @@ namespace xthree
         this->_model_name() = "LightModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xlight>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xlight>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xlight>>;
-    extern template class xw::xgenerator<xthree::xlight>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xlight>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xlight>;
+        extern template xw::xmaterialize<xthree::xlight>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xlight>>;
+        extern template class xw::xgenerator<xthree::xlight>;
+        extern template xw::xgenerator<xthree::xlight>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xlight>>;
+    #endif
 #endif
 
 #endif

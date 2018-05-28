@@ -11,19 +11,18 @@
 
 #include "xenums.hpp"
 #include "xthree.hpp"
-#include "../math/xplane_autogen.hpp"
-#include "../renderers/webgl/xwebgl_shadow_map_autogen.hpp"
-#include "../xgeometries.hpp"
+#include "../math/xplane.hpp"
+#include "../renderers/webgl/xwebgl_shadow_map.hpp"
 
 namespace xthree
 {
 
     //
-    // xRenderWidget declaration
+    // xrender_widget declaration
     //
 
     template <class D>
-    class xRenderWidget : public xw::xwidget<D>
+    class xrender_widget : public xw::xwidget<D>
     {
     public:
 
@@ -60,7 +59,7 @@ namespace xthree
 
     protected:
 
-        xRenderWidget();
+        xrender_widget();
 
         using base_type::base_type;
 
@@ -70,11 +69,11 @@ namespace xthree
     };
 
     //
-    // xRenderWidget implementation
+    // xrender_widget implementation
     //
 
     template <class D>
-    inline void xRenderWidget<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
+    inline void xrender_widget<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
@@ -103,7 +102,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xRenderWidget<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
+    inline void xrender_widget<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
         base_type::apply_patch(patch, buffers);
 
@@ -132,14 +131,14 @@ namespace xthree
     }
 
     template <class D>
-    inline xRenderWidget<D>::xRenderWidget()
+    inline xrender_widget<D>::xrender_widget()
         : base_type()
     {
         set_defaults();
     }
 
     template <class D>
-    inline void xRenderWidget<D>::set_defaults()
+    inline void xrender_widget<D>::set_defaults()
     {
         this->_model_module() = "jupyter-threejs";
         this->_model_module_version() = "1.0.0-beta.3";
@@ -153,11 +152,11 @@ namespace xthree
     //
 
     template <class D>
-    class xpreview : public xRenderWidget<D>
+    class xpreview : public xrender_widget<D>
     {
     public:
 
-        using base_type = xRenderWidget<D>;
+        using base_type = xrender_widget<D>;
         using derived_type = D;
 
         using child_type = xw::xholder<xthree_widget>;
@@ -245,42 +244,17 @@ namespace xthree
     }
 }
 
-// namespace xw
-// {
-//     XPRECOMPILE_WITH_ARG1(EXTERN, (xthree::xpreview),
-//         (
-//             xthree::box_buffer_geometry,
-//             xthree::box_geometry,
-//             xthree::circle_buffer_geometry,
-//             xthree::circle_geometry,
-//             xthree::cone_geometry,
-//             xthree::cylinder_buffer_geometry,
-//             xthree::cylinder_geometry,
-//             xthree::dodecahedron_geometry,
-//             xthree::edges_geometry,
-//             xthree::extrude_geometry,
-//             xthree::icosahedron_geometry,
-//             xthree::lathe_buffer_geometry,
-//             xthree::lathe_geometry,
-//             xthree::octahedron_geometry,
-//             xthree::parametric_geometry,
-//             xthree::plane_buffer_geometry,
-//             xthree::plane_geometry,
-//             xthree::polyhedron_geometry,
-//             xthree::ring_buffer_geometry,
-//             xthree::ring_geometry,
-//             xthree::shape_geometry,
-//             xthree::sphere_buffer_geometry,
-//             xthree::sphere_geometry,
-//             xthree::tetrahedron_geometry,
-//             xthree::text_geometry,
-//             xthree::torus_buffer_geometry,
-//             xthree::torus_geometry,
-//             xthree::torus_knot_buffer_geometry,
-//             xthree::torus_knot_geometry,
-//             xthree::tube_geometry,
-//             xthree::wireframe_geometry
-//         )
-//     )
-// }
+
+
+/*********************
+ * precompiled types *
+ *********************/
+
+// #ifndef _WIN32
+//     extern template class xw::xmaterialize<xthree::xpreview>;
+//     extern template class xw::xtransport<xw::xmaterialize<xthree::xpreview>>;
+//     extern template class xw::xgenerator<xthree::xpreview>;
+//     extern template class xw::xtransport<xw::xgenerator<xthree::xpreview>>;
+// #endif
+
 #endif

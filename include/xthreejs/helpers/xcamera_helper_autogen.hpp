@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "../core/xobject3d.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,13 +23,14 @@ namespace xthree
 
         using base_type = xobject3d<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, camera);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -82,17 +80,28 @@ namespace xthree
         this->_model_name() = "CameraHelperModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xcamera_helper>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xcamera_helper>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xcamera_helper>>;
-    extern template class xw::xgenerator<xthree::xcamera_helper>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xcamera_helper>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xcamera_helper>;
+        extern template xw::xmaterialize<xthree::xcamera_helper>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xcamera_helper>>;
+        extern template class xw::xgenerator<xthree::xcamera_helper>;
+        extern template xw::xgenerator<xthree::xcamera_helper>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xcamera_helper>>;
+    #endif
 #endif
 
 #endif

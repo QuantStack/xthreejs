@@ -67,6 +67,7 @@ set(XTHREEJS_HEADERS
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/tracks/xquaternion_keyframe_track_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/tracks/xstring_keyframe_track_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/tracks/xvector_keyframe_track_autogen.hpp
+    ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/xanimation_action.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/xanimation_action_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/xanimation_clip_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/animation/xanimation_mixer_autogen.hpp
@@ -208,6 +209,7 @@ set(XTHREEJS_HEADERS
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/loaders/xtexture_loader_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xline_basic_material_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xline_dashed_material_autogen.hpp
+    ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xmaterial.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xmaterial_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xmesh_basic_material_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/materials/xmesh_depth_material_autogen.hpp
@@ -233,6 +235,7 @@ set(XTHREEJS_HEADERS
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xinterpolant_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xline3_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xmath_autogen.hpp
+    ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xplane.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xplane_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xquaternion_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/math/xray_autogen.hpp
@@ -265,10 +268,12 @@ set(XTHREEJS_HEADERS
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_programs_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_properties_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_shader_autogen.hpp
+    ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_shadow_map.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_shadow_map_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/webgl/xwebgl_state_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/xwebgl_render_target_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/xwebgl_render_target_cube_autogen.hpp
+    ${XTHREEJS_INCLUDE_DIR}/xthreejs/renderers/xwebgl_renderer.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/scenes/xfog_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/scenes/xfog_exp2_autogen.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/scenes/xscene_autogen.hpp
@@ -296,36 +301,264 @@ set(XTHREEJS_HEADERS
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xobjects.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xrenderers.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xscenes.hpp
-    ${XTHREEJS_INCLUDE_DIR}/xthreejs/xsrc.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xtextures.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xthreejs.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xthreejs_config.hpp
     ${XTHREEJS_INCLUDE_DIR}/xthreejs/xthreejs_config.hpp
 )
 
-set(XTHREEJS_SOURCES
-    ${XTHREEJS_SOURCE_DIR}/xthreejs.cpp
-)
+OPTION(PRECOMPILED "precompile xthreejs instances" OFF)
+
+if (PRECOMPILED)
+    set(XTHREEJS_SOURCES
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xboolean_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xcolor_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xnumber_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xquaternion_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xstring_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/tracks/xvector_keyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_action.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_action_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_clip_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_mixer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_object_group_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xanimation_utils_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xkeyframe_track_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xproperty_binding_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/animation/xproperty_mixer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/audio/xaudio_analyser_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/audio/xaudio_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/audio/xaudio_listener_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/audio/xpositional_audio_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/base/xrender.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xarray_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xcamera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xcombined_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xcube_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xorthographic_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xperspective_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/cameras/xstereo_camera_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/controls/xcontrols_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/controls/xfly_controls_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/controls/xorbit_controls_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/controls/xpicker_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/controls/xtrackball_controls_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xbase_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xbase_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xbuffer_attribute_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xbuffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xclock_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xdirect_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xevent_dispatcher_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xgeometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xinstanced_buffer_attribute_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xinstanced_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xinstanced_interleaved_buffer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xinterleaved_buffer_attribute_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xinterleaved_buffer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xlayers_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xobject3d.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xobject3d_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xraycaster_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xrenderer.cpp
+        ${XTHREEJS_SOURCE_DIR}/core/xuniform_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xcurve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xcurve_path_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xfont_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xpath_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xshape_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/core/xshape_path_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xarc_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xcatmull_rom_curve3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xcubic_bezier_curve3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xcubic_bezier_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xellipse_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xline_curve3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xline_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xquadratic_bezier_curve3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xquadratic_bezier_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/curves/xspline_curve_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/objects/ximmediate_render_object_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/xscene_utils_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/extras/xshape_utils_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xbox_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xbox_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xcircle_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xcircle_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xcone_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xcylinder_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xcylinder_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xdodecahedron_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xedges_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xextrude_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xicosahedron_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xlathe_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xlathe_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xoctahedron_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xparametric_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xplane_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xplane_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xpolyhedron_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xring_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xring_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xshape_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xsphere_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xsphere_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtetrahedron_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtext_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtorus_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtorus_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtorus_knot_buffer_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtorus_knot_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xtube_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/geometries/xwireframe_geometry_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xarrow_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xaxes_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xbox3helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xbox_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xcamera_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xdirectional_light_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xface_normals_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xgrid_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xhemisphere_light_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xplane_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xpoint_light_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xpolar_grid_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xrect_area_light_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xskeleton_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xspot_light_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/helpers/xvertex_normals_helper_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xambient_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xdirectional_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xdirectional_light_shadow_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xhemisphere_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xlight_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xlight_shadow_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xpoint_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xrect_area_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xspot_light_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/lights/xspot_light_shadow_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xanimation_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xaudio_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xbuffer_geometry_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xcache_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xcompressed_texture_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xcube_texture_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xdata_texture_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xfile_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xfont_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/ximage_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xj_s_o_n_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xloader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xloading_manager_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xmaterial_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xobject_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/loaders/xtexture_loader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xline_basic_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xline_dashed_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmaterial_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_basic_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_depth_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_lambert_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_normal_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_phong_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_physical_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_standard_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xmesh_toon_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xpoints_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xraw_shader_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xshader_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xshadow_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/materials/xsprite_material_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/interpolants/xcubic_interpolant_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/interpolants/xdiscrete_interpolant_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/interpolants/xlinear_interpolant_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/interpolants/xquaternion_linear_interpolant_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xbox2_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xbox3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xcylindrical_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xfrustum_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xinterpolant_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xline3_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xmath_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xplane_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xquaternion_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xray_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xsphere_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xspherical_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/math/xtriangle_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xblackbox_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xbone_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xclone_array_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xgroup_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xl_o_d_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xlens_flare_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xline_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xline_loop_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xline_segments_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xmesh_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xpoints_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xskeleton_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xskinned_mesh_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/objects/xsprite_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_buffer_renderer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_capabilities_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_extensions_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_geometries_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_indexed_buffer_renderer_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_lights_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_objects_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_program_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_programs_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_properties_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_shader_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_shadow_map_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/webgl/xwebgl_state_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/xwebgl_render_target_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/renderers/xwebgl_render_target_cube_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/scenes/xfog_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/scenes/xfog_exp2_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/scenes/xscene_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xcompressed_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xcube_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xdata_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xdepth_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/ximage_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xtext_texture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xtexture_autogen.cpp
+        ${XTHREEJS_SOURCE_DIR}/textures/xvideo_texture_autogen.cpp
+    )
+endif()
 
 # Output
 # ======
 
-add_library(xthreejs SHARED ${XTHREEJS_SOURCES} ${XTHREEJS_HEADERS})
-target_include_directories(xthreejs PUBLIC $<BUILD_INTERFACE:${XTHREEJS_INCLUDE_DIR}>
-                                           $<INSTALL_INTERFACE:include>)
+if (PRECOMPILED)
+    add_library(xthreejs SHARED ${XTHREEJS_SOURCES} ${XTHREEJS_HEADERS})
+    target_include_directories(xthreejs PUBLIC $<BUILD_INTERFACE:${XTHREEJS_INCLUDE_DIR}>
+                                               $<INSTALL_INTERFACE:include>)
+else()
+    add_library(xthreejs INTERFACE)
+    target_include_directories(xthreejs INTERFACE $<BUILD_INTERFACE:${XTHREEJS_INCLUDE_DIR}>
+                                               $<INSTALL_INTERFACE:include>)
+endif()
+    
 
-target_link_libraries(xthreejs
-                      PUBLIC xtl
-                      PUBLIC xwidgets
-                      PRIVATE xeus)
 
-set_target_properties(xthreejs PROPERTIES
-                      PUBLIC_HEADER "${XTHREEJS_HEADERS}"
-                      COMPILE_DEFINITIONS "XTHREEJS_EXPORTS"
-                      PREFIX ""
-                      VERSION ${XTHREEJS_BINARY_VERSION}
-                      SOVERSION ${XTHREEJS_BINARY_CURRENT}
-                      OUTPUT_NAME "libxthreejs")
+if (PRECOMPILED)
+    target_link_libraries(xthreejs
+                    PUBLIC xtl
+                    PUBLIC xwidgets
+                    PRIVATE xeus)
+
+    set_target_properties(xthreejs PROPERTIES
+        PUBLIC_HEADER "${XTHREEJS_HEADERS}"
+        COMPILE_DEFINITIONS "XTHREEJS_EXPORTS"
+        PREFIX ""
+        VERSION ${XTHREEJS_BINARY_VERSION}
+        SOVERSION ${XTHREEJS_BINARY_CURRENT}
+        OUTPUT_NAME "libxthreejs")
+endif()
 
 # Compilation flags
 # =================
@@ -334,11 +567,13 @@ include(CheckCXXCompilerFlag)
 string(TOUPPER "${CMAKE_BUILD_TYPE}" U_CMAKE_BUILD_TYPE)
 OPTION(DISABLE_ARCH_NATIVE "disable -march=native flag" OFF)
 
-set_target_properties(xthreejs PROPERTIES
-    CXX_EXTENSIONS OFF
-    CXX_STANDARD_REQUIRED 14)
+if (PRECOMPILED)
+    set_target_properties(xthreejs PROPERTIES
+        CXX_EXTENSIONS OFF
+        CXX_STANDARD_REQUIRED 14)
+    
+    target_compile_features(xthreejs PRIVATE cxx_std_14)
 
-target_compile_features(xthreejs PRIVATE cxx_std_14)
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
     target_compile_options(xthreejs PUBLIC -Wunused-parameter -Wextra -Wreorder)
@@ -367,6 +602,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU"
         endif()
     endif()
     message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+endif()
 endif()
 
 # Installation

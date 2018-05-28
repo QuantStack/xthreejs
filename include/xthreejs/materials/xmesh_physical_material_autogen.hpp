@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xmesh_standard_material_autogen.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,7 +23,6 @@ namespace xthree
 
         using base_type = xmesh_standard_material<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -36,6 +32,8 @@ namespace xthree
         XPROPERTY(xtl::xoptional<::xeus::xjson>, derived_type, defines, ::xeus::xjson::parse(R"({"PHYSICAL":""})"));
         XPROPERTY(double, derived_type, reflectivity, 0.5);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -91,17 +89,28 @@ namespace xthree
         this->_model_name() = "MeshPhysicalMaterialModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xmesh_physical_material>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xmesh_physical_material>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xmesh_physical_material>>;
-    extern template class xw::xgenerator<xthree::xmesh_physical_material>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xmesh_physical_material>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xmesh_physical_material>;
+        extern template xw::xmaterialize<xthree::xmesh_physical_material>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xmesh_physical_material>>;
+        extern template class xw::xgenerator<xthree::xmesh_physical_material>;
+        extern template xw::xgenerator<xthree::xmesh_physical_material>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xmesh_physical_material>>;
+    #endif
 #endif
 
 #endif

@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xbuffer_attribute_autogen.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,13 +23,14 @@ namespace xthree
 
         using base_type = xbuffer_attribute<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(int, derived_type, meshPerAttribute, 1);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -51,58 +49,6 @@ namespace xthree
     //
     // instanced_buffer_attribute implementation
     //
-
-    inline void set_patch_from_property(const decltype(instanced_buffer_attribute::array)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
-
-    inline void set_property_from_patch(decltype(instanced_buffer_attribute::array)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(instanced_buffer_attribute::array)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
-    
-    inline void set_patch_from_property(const decltype(instanced_buffer_attribute_generator::array)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
-
-    inline void set_property_from_patch(decltype(instanced_buffer_attribute_generator::array)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(instanced_buffer_attribute_generator::array)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
 
 
     template <class D>
@@ -134,17 +80,28 @@ namespace xthree
         this->_model_name() = "InstancedBufferAttributeModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xinstanced_buffer_attribute>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xinstanced_buffer_attribute>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute>>;
-    extern template class xw::xgenerator<xthree::xinstanced_buffer_attribute>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xinstanced_buffer_attribute>;
+        extern template xw::xmaterialize<xthree::xinstanced_buffer_attribute>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute>>;
+        extern template class xw::xgenerator<xthree::xinstanced_buffer_attribute>;
+        extern template xw::xgenerator<xthree::xinstanced_buffer_attribute>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute>>;
+    #endif
 #endif
 
 #endif

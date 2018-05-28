@@ -7,6 +7,7 @@
 #include "animation/tracks/xquaternion_keyframe_track_autogen.hpp"
 #include "animation/tracks/xstring_keyframe_track_autogen.hpp"
 #include "animation/tracks/xvector_keyframe_track_autogen.hpp"
+#include "animation/xanimation_action.hpp"
 #include "animation/xanimation_action_autogen.hpp"
 #include "animation/xanimation_clip_autogen.hpp"
 #include "animation/xanimation_mixer_autogen.hpp"

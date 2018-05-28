@@ -13,8 +13,10 @@
 #include "renderers/webgl/xwebgl_programs_autogen.hpp"
 #include "renderers/webgl/xwebgl_properties_autogen.hpp"
 #include "renderers/webgl/xwebgl_shader_autogen.hpp"
+#include "renderers/webgl/xwebgl_shadow_map.hpp"
 #include "renderers/webgl/xwebgl_shadow_map_autogen.hpp"
 #include "renderers/webgl/xwebgl_state_autogen.hpp"
 #include "renderers/xwebgl_render_target_autogen.hpp"
 #include "renderers/xwebgl_render_target_cube_autogen.hpp"
+#include "renderers/xwebgl_renderer.hpp"
 #endif

@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xbase_buffer_geometry_autogen.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,7 +23,6 @@ namespace xthree
 
         using base_type = xbase_buffer_geometry<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
@@ -36,6 +32,8 @@ namespace xthree
         XPROPERTY(int, derived_type, MaxIndex, 65535);
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, _ref_geometry);
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -89,17 +87,28 @@ namespace xthree
         this->_model_name() = "BufferGeometryModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbuffer_geometry>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xbuffer_geometry>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_geometry>>;
-    extern template class xw::xgenerator<xthree::xbuffer_geometry>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_geometry>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xbuffer_geometry>;
+        extern template xw::xmaterialize<xthree::xbuffer_geometry>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_geometry>>;
+        extern template class xw::xgenerator<xthree::xbuffer_geometry>;
+        extern template xw::xgenerator<xthree::xbuffer_geometry>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_geometry>>;
+    #endif
 #endif
 
 #endif

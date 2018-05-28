@@ -8,6 +8,8 @@
 
 #include "xthreejs/xthreejs_config.hpp"
 
+#include <memory>
+
 namespace xthree
 {
 

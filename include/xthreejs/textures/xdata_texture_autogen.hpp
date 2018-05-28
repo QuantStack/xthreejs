@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
 #include "xtexture_autogen.hpp"
+#include "../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,18 +23,19 @@ namespace xthree
 
         using base_type = xtexture<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
-        XPROPERTY(buffer_type, derived_type, data);
+        XPROPERTY(webgldataunion, derived_type, data);
         XPROPERTY(std::string, derived_type, minFilter, "NearestFilter", xenums::Filters);
         XPROPERTY(std::string, derived_type, magFilter, "NearestFilter", xenums::Filters);
         XPROPERTY(bool, derived_type, flipY, false);
         XPROPERTY(bool, derived_type, generateMipmaps, false);
 
         const std::vector<xw::xjson_path_type>& buffer_paths() const;
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -57,10 +55,6 @@ namespace xthree
     // data_texture implementation
     //
 
-    //
-    // buffer_attribute implementation
-    //
-
     template <class D>
     inline const std::vector<xw::xjson_path_type>&  xdata_texture<D>::buffer_paths() const
     {
@@ -70,64 +64,12 @@ namespace xthree
         return default_buffer_paths;
     }
 
-    inline void set_patch_from_property(const decltype(data_texture::data)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
-
-    inline void set_property_from_patch(decltype(data_texture::data)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(data_texture::data)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
-    
-    inline void set_patch_from_property(const decltype(data_texture_generator::data)& property,
-                                        xeus::xjson& patch,
-                                        xeus::buffer_sequence& buffers)
-    {
-        xeus::xjson j = {
-            {"shape", property().shape()},
-            {"dtype", "float32"},
-            {"buffer", xw::xbuffer_reference_prefix() + std::to_string(buffers.size())}
-        };
-        patch[property.name()] = std::move(j);
-        // TODO raw_data -> data upon release 0.16 for xtensor
-        buffers.emplace_back(property().raw_data(), 4 * property().size());
-    }
-
-    inline void set_property_from_patch(decltype(data_texture_generator::data)& property,
-                                        const xeus::xjson& patch,
-                                        const xeus::buffer_sequence& buffers)
-    {
-        using value_type = typename decltype(data_texture_generator::data)::value_type;
-        std::size_t index = xw::buffer_index(patch[property.name()].template get<std::string>());
-        const auto& buffer = buffers[index];
-        property = xt::adapt(const_cast<float*>(static_cast<const float*>(buffer.data())),
-                             buffer.size() / 4, xt::no_ownership(),
-                             std::array<std::size_t, 1>{2});
-    }
-
     template <class D>
     inline void xdata_texture<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
-        set_patch_from_property(data, state, buffers);
+        xw::set_patch_from_property(data, state, buffers);
         xw::set_patch_from_property(minFilter, state, buffers);
         xw::set_patch_from_property(magFilter, state, buffers);
         xw::set_patch_from_property(flipY, state, buffers);
@@ -139,7 +81,7 @@ namespace xthree
     {
         base_type::apply_patch(patch, buffers);
 
-        set_property_from_patch(data, patch, buffers);
+        xw::set_property_from_patch(data, patch, buffers);
         xw::set_property_from_patch(minFilter, patch, buffers);
         xw::set_property_from_patch(magFilter, patch, buffers);
         xw::set_property_from_patch(flipY, patch, buffers);
@@ -159,17 +101,28 @@ namespace xthree
         this->_model_name() = "DataTextureModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xdata_texture>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xdata_texture>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xdata_texture>>;
-    extern template class xw::xgenerator<xthree::xdata_texture>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xdata_texture>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xdata_texture>;
+        extern template xw::xmaterialize<xthree::xdata_texture>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xdata_texture>>;
+        extern template class xw::xgenerator<xthree::xdata_texture>;
+        extern template xw::xgenerator<xthree::xdata_texture>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xdata_texture>>;
+    #endif
 #endif
 
 #endif

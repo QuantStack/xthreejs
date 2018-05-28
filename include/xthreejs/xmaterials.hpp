@@ -3,6 +3,7 @@
 
 #include "materials/xline_basic_material_autogen.hpp"
 #include "materials/xline_dashed_material_autogen.hpp"
+#include "materials/xmaterial.hpp"
 #include "materials/xmaterial_autogen.hpp"
 #include "materials/xmesh_basic_material_autogen.hpp"
 #include "materials/xmesh_depth_material_autogen.hpp"

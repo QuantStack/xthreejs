@@ -12,6 +12,7 @@
 #include "math/xinterpolant_autogen.hpp"
 #include "math/xline3_autogen.hpp"
 #include "math/xmath_autogen.hpp"
+#include "math/xplane.hpp"
 #include "math/xplane_autogen.hpp"
 #include "math/xquaternion_autogen.hpp"
 #include "math/xray_autogen.hpp"

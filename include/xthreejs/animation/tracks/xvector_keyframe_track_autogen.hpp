@@ -4,14 +4,11 @@
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
 #include "xwidgets/xwidget.hpp"
-#include "xwidgets/xprecompiled_macros.hpp"
-
-#include "xtensor/xtensor.hpp"
-#include "xtensor/xadapt.hpp"
 
 #include "../../base/xenums.hpp"
 #include "../../base/xthree_types.hpp"
 #include "../xkeyframe_track_autogen.hpp"
+#include "../../base/xrender.hpp"
 
 namespace xthree
 {
@@ -26,12 +23,13 @@ namespace xthree
 
         using base_type = xkeyframe_track<D>;
         using derived_type = D;
-        using buffer_type = xt::xtensor<float, 2>;
 
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
 
+
+        std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
 
     protected:
 
@@ -79,17 +77,28 @@ namespace xthree
         this->_model_name() = "VectorKeyframeTrackModel";
         this->_view_name() = "";
     }
+
+    xeus::xjson mime_bundle_repr(xw::xmaterialize<xvector_keyframe_track>& widget)
+    {
+        if (not widget.pre)
+            widget.pre = std::make_shared<preview>(preview(widget));
+        return mime_bundle_repr(*widget.pre);
+    }
 }
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifndef _WIN32
-    extern template class xw::xmaterialize<xthree::xvector_keyframe_track>;
-    extern template class xw::xtransport<xw::xmaterialize<xthree::xvector_keyframe_track>>;
-    extern template class xw::xgenerator<xthree::xvector_keyframe_track>;
-    extern template class xw::xtransport<xw::xgenerator<xthree::xvector_keyframe_track>>;
+#ifdef PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xvector_keyframe_track>;
+        extern template xw::xmaterialize<xthree::xvector_keyframe_track>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xvector_keyframe_track>>;
+        extern template class xw::xgenerator<xthree::xvector_keyframe_track>;
+        extern template xw::xgenerator<xthree::xvector_keyframe_track>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xvector_keyframe_track>>;
+    #endif
 #endif
 
 #endif

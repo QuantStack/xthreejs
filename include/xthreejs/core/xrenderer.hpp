@@ -20,15 +20,15 @@ namespace xthree
     //
 
     template<class D>
-    class xrenderer : public xRenderWidget<D>
+    class xrenderer : public xrender_widget<D>
     {
     public:
 
-        using base_type = xRenderWidget<D>;
+        using base_type = xrender_widget<D>;
         using derived_type = D;
 
-        xeus::xjson get_state() const;
-        void apply_patch(const xeus::xjson& patch);
+        void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
+        void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(int, derived_type, _width, 200);
         XPROPERTY(int, derived_type, _height, 200);
@@ -57,32 +57,31 @@ namespace xthree
     //
 
     template <class D>
-    inline void xrenderer<D>::apply_patch(const xeus::xjson& patch)
+    inline void xrenderer<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
-        base_type::apply_patch(patch);
+        base_type::apply_patch(patch, buffers);
 
-        XOBJECT_SET_PROPERTY_FROM_PATCH(_width, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(_height, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(scene, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(camera, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(controls, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(background, patch);
-        XOBJECT_SET_PROPERTY_FROM_PATCH(background_opacity, patch);
+        xw::set_property_from_patch(_width, patch, buffers);
+        xw::set_property_from_patch(_height, patch, buffers);
+        xw::set_property_from_patch(scene, patch, buffers);
+        xw::set_property_from_patch(camera, patch, buffers);
+        xw::set_property_from_patch(controls, patch, buffers);
+        xw::set_property_from_patch(background, patch, buffers);
+        xw::set_property_from_patch(background_opacity, patch, buffers);
     }
 
     template <class D>
-    inline xeus::xjson xrenderer<D>::get_state() const
+    inline void xrenderer<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
-        xeus::xjson state = base_type::get_state();
+        base_type::serialize_state(state, buffers);
 
-        XOBJECT_SET_PATCH_FROM_PROPERTY(_width, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(_height, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(scene, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(camera, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(controls, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(background, state);
-        XOBJECT_SET_PATCH_FROM_PROPERTY(background_opacity, state);
-        return state;
+        xw::set_patch_from_property(_width, state, buffers);
+        xw::set_patch_from_property(_height, state, buffers);
+        xw::set_patch_from_property(scene, state, buffers);
+        xw::set_patch_from_property(camera, state, buffers);
+        xw::set_patch_from_property(controls, state, buffers);
+        xw::set_patch_from_property(background, state, buffers);
+        xw::set_patch_from_property(background_opacity, state, buffers);
     }
 
     template <class D>
@@ -99,4 +98,17 @@ namespace xthree
         this->_view_name() = "RendererView";
     }
 }
+
+/*********************
+ * precompiled types *
+ *********************/
+
+// #ifndef _WIN32
+//    extern template class xw::xmaterialize<xthree::xrenderer>;
+//    extern template xw::xmaterialize<xthree::xrenderer>::xmaterialize();
+//    extern template class xw::xtransport<xw::xmaterialize<xthree::xrenderer>>;
+//    extern template class xw::xgenerator<xthree::xrenderer>;
+//    extern template xw::xgenerator<xthree::xrenderer>::xgenerator();
+//    extern template class xw::xtransport<xw::xgenerator<xthree::xrenderer>>;
+// #endif
 #endif
