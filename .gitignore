@@ -50,3 +50,5 @@ docs/build/
 
 # Generated files
 *.pc
+
+xthreejs_config.hpp
