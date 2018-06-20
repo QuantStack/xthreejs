@@ -37,6 +37,7 @@ namespace xthree
         XPROPERTY(double, derived_type, height, 0);
         XPROPERTY(std::string, derived_type, mode, "perspective", XEITHER("perspective", "orthographic"));
         XPROPERTY(bool, derived_type, impersonate, true);
+        XPROPERTY(std::string, derived_type, type, "CombinedCamera");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -75,6 +76,7 @@ namespace xthree
         xw::set_patch_from_property(height, state, buffers);
         xw::set_patch_from_property(mode, state, buffers);
         xw::set_patch_from_property(impersonate, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -92,6 +94,7 @@ namespace xthree
         xw::set_property_from_patch(height, patch, buffers);
         xw::set_property_from_patch(mode, patch, buffers);
         xw::set_property_from_patch(impersonate, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -107,20 +110,15 @@ namespace xthree
         this->_model_name() = "CombinedCameraModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xcombined_camera>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xcombined_camera>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xcombined_camera>;
         extern template xw::xmaterialize<xthree::xcombined_camera>::xmaterialize();

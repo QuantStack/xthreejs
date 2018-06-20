@@ -89,20 +89,15 @@ namespace xthree
         this->_model_name() = "StereoCameraModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xstereo_camera>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xstereo_camera>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xstereo_camera>;
         extern template xw::xmaterialize<xthree::xstereo_camera>::xmaterialize();

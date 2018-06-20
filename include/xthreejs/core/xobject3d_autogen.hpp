@@ -28,7 +28,7 @@ namespace xthree
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(std::string, derived_type, name, "");
-        XPROPERTY(std::string, derived_type, type, "");
+        XPROPERTY(std::string, derived_type, type, "Object3D");
         XPROPERTY(std::vector<xw::xholder<xthree_widget>>, derived_type, children, std::vector<xw::xholder<xthree_widget>>({}));
         XPROPERTY(vector3, derived_type, up, vector3({0,1,0}));
         XPROPERTY(vector3, derived_type, position, vector3({0,0,0}));
@@ -134,20 +134,14 @@ namespace xthree
         this->_model_name() = "Object3DBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xobject3d_base>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xobject3d_base>;
         extern template xw::xmaterialize<xthree::xobject3d_base>::xmaterialize();

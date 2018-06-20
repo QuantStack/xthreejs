@@ -33,6 +33,7 @@ namespace xthree
         XPROPERTY(int, derived_type, hex, 0);
         XPROPERTY(xtl::xoptional<double>, derived_type, headLength);
         XPROPERTY(xtl::xoptional<double>, derived_type, headWidth);
+        XPROPERTY(std::string, derived_type, type, "ArrowHelper");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -67,6 +68,7 @@ namespace xthree
         xw::set_patch_from_property(hex, state, buffers);
         xw::set_patch_from_property(headLength, state, buffers);
         xw::set_patch_from_property(headWidth, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -80,6 +82,7 @@ namespace xthree
         xw::set_property_from_patch(hex, patch, buffers);
         xw::set_property_from_patch(headLength, patch, buffers);
         xw::set_property_from_patch(headWidth, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -95,20 +98,15 @@ namespace xthree
         this->_model_name() = "ArrowHelperModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xarrow_helper>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xarrow_helper>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xarrow_helper>;
         extern template xw::xmaterialize<xthree::xarrow_helper>::xmaterialize();

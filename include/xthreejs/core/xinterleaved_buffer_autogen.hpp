@@ -27,7 +27,7 @@ namespace xthree
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
-        XPROPERTY(webgldataunion, derived_type, array);
+        XPROPERTY(webgldataunion<float>, derived_type, array);
         XPROPERTY(int, derived_type, stride, 0);
         XPROPERTY(bool, derived_type, dynamic, false);
         XPROPERTY(int, derived_type, version, 0);
@@ -101,20 +101,15 @@ namespace xthree
         this->_model_name() = "InterleavedBufferModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xinterleaved_buffer>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xinterleaved_buffer>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xinterleaved_buffer>;
         extern template xw::xmaterialize<xthree::xinterleaved_buffer>::xmaterialize();

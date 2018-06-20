@@ -32,6 +32,7 @@ namespace xthree
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, map);
         XPROPERTY(double, derived_type, size, 1);
         XPROPERTY(bool, derived_type, sizeAttenuation, true);
+        XPROPERTY(std::string, derived_type, type, "PointsMaterial");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -65,6 +66,7 @@ namespace xthree
         xw::set_patch_from_property(map, state, buffers);
         xw::set_patch_from_property(size, state, buffers);
         xw::set_patch_from_property(sizeAttenuation, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -77,6 +79,7 @@ namespace xthree
         xw::set_property_from_patch(map, patch, buffers);
         xw::set_property_from_patch(size, patch, buffers);
         xw::set_property_from_patch(sizeAttenuation, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -92,20 +95,15 @@ namespace xthree
         this->_model_name() = "PointsMaterialModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xpoints_material>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xpoints_material>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xpoints_material>;
         extern template xw::xmaterialize<xthree::xpoints_material>::xmaterialize();

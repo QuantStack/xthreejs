@@ -3,7 +3,7 @@
 
 //
 // This file auto-generated with generate-enums.js
-// Date: Fri Feb 09 2018 12:06:09 GMT+0100 (CET)
+// Date: Sat Jun 16 2018 09:42:05 GMT+0200 (CEST)
 //
 
 #include "xwidgets/xeither.hpp"
@@ -145,6 +145,20 @@ namespace xthree{
             "RGBA_PVRTC_4BPPV1_Format",
             "RGBA_PVRTC_2BPPV1_Format",
             "RGB_ETC1_Format",
+            "RGBA_ASTC_4x4_Format",
+            "RGBA_ASTC_5x4_Format",
+            "RGBA_ASTC_5x5_Format",
+            "RGBA_ASTC_6x5_Format",
+            "RGBA_ASTC_6x6_Format",
+            "RGBA_ASTC_8x5_Format",
+            "RGBA_ASTC_8x6_Format",
+            "RGBA_ASTC_8x8_Format",
+            "RGBA_ASTC_10x5_Format",
+            "RGBA_ASTC_10x6_Format",
+            "RGBA_ASTC_10x8_Format",
+            "RGBA_ASTC_10x10_Format",
+            "RGBA_ASTC_12x10_Format",
+            "RGBA_ASTC_12x12_Format",
         );
 
         auto TextureEncodings = XEITHER(

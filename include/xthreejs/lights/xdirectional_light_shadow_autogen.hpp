@@ -7,7 +7,7 @@
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
-#include "xlight_shadow_autogen.hpp"
+#include "xlight_shadow.hpp"
 #include "../base/xrender.hpp"
 
 namespace xthree
@@ -77,20 +77,15 @@ namespace xthree
         this->_model_name() = "DirectionalLightShadowModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xdirectional_light_shadow>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xdirectional_light_shadow>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xdirectional_light_shadow>;
         extern template xw::xmaterialize<xthree::xdirectional_light_shadow>::xmaterialize();

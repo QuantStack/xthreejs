@@ -103,12 +103,15 @@ namespace xthree
  * precompiled types *
  *********************/
 
-// #ifndef _WIN32
-//    extern template class xw::xmaterialize<xthree::xrenderer>;
-//    extern template xw::xmaterialize<xthree::xrenderer>::xmaterialize();
-//    extern template class xw::xtransport<xw::xmaterialize<xthree::xrenderer>>;
-//    extern template class xw::xgenerator<xthree::xrenderer>;
-//    extern template xw::xgenerator<xthree::xrenderer>::xgenerator();
-//    extern template class xw::xtransport<xw::xgenerator<xthree::xrenderer>>;
-// #endif
+#ifdef XTHREEJS_PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xrenderer>;
+        extern template xw::xmaterialize<xthree::xrenderer>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xrenderer>>;
+        extern template class xw::xgenerator<xthree::xrenderer>;
+        extern template xw::xgenerator<xthree::xrenderer>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xrenderer>>;
+    #endif
+#endif
+
 #endif

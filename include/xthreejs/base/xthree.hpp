@@ -70,7 +70,7 @@ namespace xthree
     inline void xthree_widget<D>::set_defaults()
     {
         this->_model_module() = "jupyter-threejs";
-        this->_model_module_version() = "1.0.0-beta.3";
+        this->_model_module_version() =  XTHREEJS_PROTOCOL_VERSION;
         this->_view_module() = "";
         this->_view_module_version() = "";
     }

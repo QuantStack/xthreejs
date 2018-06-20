@@ -77,20 +77,15 @@ namespace xthree
         this->_model_name() = "QuadraticBezierCurve3Model";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xquadratic_bezier_curve3>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xquadratic_bezier_curve3>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xquadratic_bezier_curve3>;
         extern template xw::xmaterialize<xthree::xquadratic_bezier_curve3>::xmaterialize();

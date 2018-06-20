@@ -28,6 +28,7 @@ namespace xthree
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(double, derived_type, size, 1);
+        XPROPERTY(std::string, derived_type, type, "AxesHelper");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -57,6 +58,7 @@ namespace xthree
         base_type::serialize_state(state, buffers);
 
         xw::set_patch_from_property(size, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -65,6 +67,7 @@ namespace xthree
         base_type::apply_patch(patch, buffers);
 
         xw::set_property_from_patch(size, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -80,20 +83,15 @@ namespace xthree
         this->_model_name() = "AxesHelperModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xaxes_helper>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xaxes_helper>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xaxes_helper>;
         extern template xw::xmaterialize<xthree::xaxes_helper>::xmaterialize();

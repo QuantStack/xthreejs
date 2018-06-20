@@ -77,20 +77,15 @@ namespace xthree
         this->_model_name() = "DiscreteInterpolantModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xdiscrete_interpolant>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xdiscrete_interpolant>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xdiscrete_interpolant>;
         extern template xw::xmaterialize<xthree::xdiscrete_interpolant>::xmaterialize();

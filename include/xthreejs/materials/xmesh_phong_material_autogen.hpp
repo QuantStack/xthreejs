@@ -58,6 +58,7 @@ namespace xthree
         XPROPERTY(double, derived_type, wireframeLinewidth, 1);
         XPROPERTY(std::string, derived_type, wireframeLinecap, "round");
         XPROPERTY(std::string, derived_type, wireframeLinejoin, "round");
+        XPROPERTY(std::string, derived_type, type, "MeshPhongMaterial");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -117,6 +118,7 @@ namespace xthree
         xw::set_patch_from_property(wireframeLinewidth, state, buffers);
         xw::set_patch_from_property(wireframeLinecap, state, buffers);
         xw::set_patch_from_property(wireframeLinejoin, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -155,6 +157,7 @@ namespace xthree
         xw::set_property_from_patch(wireframeLinewidth, patch, buffers);
         xw::set_property_from_patch(wireframeLinecap, patch, buffers);
         xw::set_property_from_patch(wireframeLinejoin, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -170,20 +173,15 @@ namespace xthree
         this->_model_name() = "MeshPhongMaterialModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xmesh_phong_material>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xmesh_phong_material>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xmesh_phong_material>;
         extern template xw::xmaterialize<xthree::xmesh_phong_material>::xmaterialize();

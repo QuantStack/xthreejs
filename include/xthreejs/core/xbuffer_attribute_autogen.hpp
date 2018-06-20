@@ -1,5 +1,5 @@
-#ifndef XTHREE_BUFFER_ATTRIBUTE_HPP
-#define XTHREE_BUFFER_ATTRIBUTE_HPP
+#ifndef XTHREE_BUFFER_ATTRIBUTE_BASE_HPP
+#define XTHREE_BUFFER_ATTRIBUTE_BASE_HPP
 
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
@@ -13,11 +13,11 @@
 namespace xthree
 {
     //
-    // buffer_attribute declaration
+    // buffer_attribute_base declaration
     //
 
     template<class D>
-    class xbuffer_attribute : public xthree_widget<D>
+    class xbuffer_attribute_base : public xthree_widget<D>
     {
     public:
 
@@ -27,7 +27,7 @@ namespace xthree
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
-        XPROPERTY(webgldataunion, derived_type, array);
+        XPROPERTY(webgldataunion<float>, derived_type, array);
         XPROPERTY(bool, derived_type, dynamic, false);
         XPROPERTY(bool, derived_type, needsUpdate, false);
         XPROPERTY(bool, derived_type, normalized, true);
@@ -39,7 +39,7 @@ namespace xthree
 
     protected:
 
-        xbuffer_attribute();
+        xbuffer_attribute_base();
         using base_type::base_type;
         
     private:
@@ -47,16 +47,16 @@ namespace xthree
         void set_defaults();
     };
 
-    using buffer_attribute = xw::xmaterialize<xbuffer_attribute>;
+    using buffer_attribute_base = xw::xmaterialize<xbuffer_attribute_base>;
 
-    using buffer_attribute_generator = xw::xgenerator<xbuffer_attribute>;
+    using buffer_attribute_base_generator = xw::xgenerator<xbuffer_attribute_base>;
 
     //
-    // buffer_attribute implementation
+    // buffer_attribute_base implementation
     //
 
     template <class D>
-    inline const std::vector<xw::xjson_path_type>&  xbuffer_attribute<D>::buffer_paths() const
+    inline const std::vector<xw::xjson_path_type>&  xbuffer_attribute_base<D>::buffer_paths() const
     {
         static const std::vector<xw::xjson_path_type> default_buffer_paths = { 
             { "array", "buffer" },
@@ -65,7 +65,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xbuffer_attribute<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
+    inline void xbuffer_attribute_base<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
@@ -77,7 +77,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xbuffer_attribute<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
+    inline void xbuffer_attribute_base<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
         base_type::apply_patch(patch, buffers);
 
@@ -89,39 +89,33 @@ namespace xthree
     }
 
     template <class D>
-    inline xbuffer_attribute<D>::xbuffer_attribute()
+    inline xbuffer_attribute_base<D>::xbuffer_attribute_base()
         : base_type()
     {
         set_defaults();
     }
 
     template <class D>
-    inline void xbuffer_attribute<D>::set_defaults()
+    inline void xbuffer_attribute_base<D>::set_defaults()
     {
-        this->_model_name() = "BufferAttributeModel";
+        this->_model_name() = "BufferAttributeBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbuffer_attribute>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
-        extern template class xw::xmaterialize<xthree::xbuffer_attribute>;
-        extern template xw::xmaterialize<xthree::xbuffer_attribute>::xmaterialize();
-        extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_attribute>>;
-        extern template class xw::xgenerator<xthree::xbuffer_attribute>;
-        extern template xw::xgenerator<xthree::xbuffer_attribute>::xgenerator();
-        extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_attribute>>;
+        extern template class xw::xmaterialize<xthree::xbuffer_attribute_base>;
+        extern template xw::xmaterialize<xthree::xbuffer_attribute_base>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xbuffer_attribute_base>>;
+        extern template class xw::xgenerator<xthree::xbuffer_attribute_base>;
+        extern template xw::xgenerator<xthree::xbuffer_attribute_base>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xbuffer_attribute_base>>;
     #endif
 #endif
 

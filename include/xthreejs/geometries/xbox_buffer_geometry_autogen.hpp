@@ -33,6 +33,7 @@ namespace xthree
         XPROPERTY(int, derived_type, widthSegments, 1);
         XPROPERTY(int, derived_type, heightSegments, 1);
         XPROPERTY(int, derived_type, depthSegments, 1);
+        XPROPERTY(std::string, derived_type, type, "BoxBufferGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -67,6 +68,7 @@ namespace xthree
         xw::set_patch_from_property(widthSegments, state, buffers);
         xw::set_patch_from_property(heightSegments, state, buffers);
         xw::set_patch_from_property(depthSegments, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -80,6 +82,7 @@ namespace xthree
         xw::set_property_from_patch(widthSegments, patch, buffers);
         xw::set_property_from_patch(heightSegments, patch, buffers);
         xw::set_property_from_patch(depthSegments, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -95,20 +98,15 @@ namespace xthree
         this->_model_name() = "BoxBufferGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbox_buffer_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xbox_buffer_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xbox_buffer_geometry>;
         extern template xw::xmaterialize<xthree::xbox_buffer_geometry>::xmaterialize();

@@ -43,23 +43,24 @@ namespace xthree
         XPROPERTY(std::string, derived_type, depthFunc, "LessEqualDepth", xenums::DepthMode);
         XPROPERTY(bool, derived_type, depthTest, true);
         XPROPERTY(bool, derived_type, depthWrite, true);
+        XPROPERTY(bool, derived_type, dithering, false);
+        XPROPERTY(bool, derived_type, flatShading, false);
         XPROPERTY(bool, derived_type, fog, true);
         XPROPERTY(bool, derived_type, lights, true);
         XPROPERTY(std::string, derived_type, name, "");
+        XPROPERTY(double, derived_type, opacity, 1);
         XPROPERTY(double, derived_type, overdraw, 0);
         XPROPERTY(bool, derived_type, polygonOffset, false);
         XPROPERTY(double, derived_type, polygonOffsetFactor, 0);
         XPROPERTY(double, derived_type, polygonOffsetUnits, 0);
         XPROPERTY(xtl::xoptional<std::string>, derived_type, precision);
         XPROPERTY(bool, derived_type, premultipliedAlpha, false);
-        XPROPERTY(bool, derived_type, dithering, false);
-        XPROPERTY(bool, derived_type, flatShading, false);
+        XPROPERTY(xtl::xoptional<std::string>, derived_type, shadowSide);//, xenums::Side);
         XPROPERTY(std::string, derived_type, side, "FrontSide", xenums::Side);
         XPROPERTY(bool, derived_type, transparent, false);
-        XPROPERTY(std::string, derived_type, type, "");
+        XPROPERTY(std::string, derived_type, type, "Material");
         XPROPERTY(std::string, derived_type, vertexColors, "NoColors", xenums::Colors);
         XPROPERTY(bool, derived_type, visible, true);
-        XPROPERTY(double, derived_type, opacity, 1);
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -104,23 +105,24 @@ namespace xthree
         xw::set_patch_from_property(depthFunc, state, buffers);
         xw::set_patch_from_property(depthTest, state, buffers);
         xw::set_patch_from_property(depthWrite, state, buffers);
+        xw::set_patch_from_property(dithering, state, buffers);
+        xw::set_patch_from_property(flatShading, state, buffers);
         xw::set_patch_from_property(fog, state, buffers);
         xw::set_patch_from_property(lights, state, buffers);
         xw::set_patch_from_property(name, state, buffers);
+        xw::set_patch_from_property(opacity, state, buffers);
         xw::set_patch_from_property(overdraw, state, buffers);
         xw::set_patch_from_property(polygonOffset, state, buffers);
         xw::set_patch_from_property(polygonOffsetFactor, state, buffers);
         xw::set_patch_from_property(polygonOffsetUnits, state, buffers);
         xw::set_patch_from_property(precision, state, buffers);
         xw::set_patch_from_property(premultipliedAlpha, state, buffers);
-        xw::set_patch_from_property(dithering, state, buffers);
-        xw::set_patch_from_property(flatShading, state, buffers);
+        xw::set_patch_from_property(shadowSide, state, buffers);
         xw::set_patch_from_property(side, state, buffers);
         xw::set_patch_from_property(transparent, state, buffers);
         xw::set_patch_from_property(type, state, buffers);
         xw::set_patch_from_property(vertexColors, state, buffers);
         xw::set_patch_from_property(visible, state, buffers);
-        xw::set_patch_from_property(opacity, state, buffers);
     }
 
     template <class D>
@@ -144,23 +146,24 @@ namespace xthree
         xw::set_property_from_patch(depthFunc, patch, buffers);
         xw::set_property_from_patch(depthTest, patch, buffers);
         xw::set_property_from_patch(depthWrite, patch, buffers);
+        xw::set_property_from_patch(dithering, patch, buffers);
+        xw::set_property_from_patch(flatShading, patch, buffers);
         xw::set_property_from_patch(fog, patch, buffers);
         xw::set_property_from_patch(lights, patch, buffers);
         xw::set_property_from_patch(name, patch, buffers);
+        xw::set_property_from_patch(opacity, patch, buffers);
         xw::set_property_from_patch(overdraw, patch, buffers);
         xw::set_property_from_patch(polygonOffset, patch, buffers);
         xw::set_property_from_patch(polygonOffsetFactor, patch, buffers);
         xw::set_property_from_patch(polygonOffsetUnits, patch, buffers);
         xw::set_property_from_patch(precision, patch, buffers);
         xw::set_property_from_patch(premultipliedAlpha, patch, buffers);
-        xw::set_property_from_patch(dithering, patch, buffers);
-        xw::set_property_from_patch(flatShading, patch, buffers);
+        xw::set_property_from_patch(shadowSide, patch, buffers);
         xw::set_property_from_patch(side, patch, buffers);
         xw::set_property_from_patch(transparent, patch, buffers);
         xw::set_property_from_patch(type, patch, buffers);
         xw::set_property_from_patch(vertexColors, patch, buffers);
         xw::set_property_from_patch(visible, patch, buffers);
-        xw::set_property_from_patch(opacity, patch, buffers);
     }
 
     template <class D>
@@ -176,20 +179,14 @@ namespace xthree
         this->_model_name() = "MaterialBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xmaterial_base>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xmaterial_base>;
         extern template xw::xmaterialize<xthree::xmaterial_base>::xmaterialize();

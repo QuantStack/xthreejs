@@ -40,7 +40,7 @@ namespace xthree
         XPROPERTY(bool, derived_type, autoClearColor, true);
         XPROPERTY(bool, derived_type, autoClearDepth, true);
         XPROPERTY(bool, derived_type, autoClearStencil, true);
-        XPROPERTY(std::vector<plane>, derived_type, clippingPlanes);
+        XPROPERTY(std::vector<xw::xholder<xplane>>, derived_type, clippingPlanes);
         XPROPERTY(double, derived_type, gammaFactor, 2.0);
         XPROPERTY(bool, derived_type, gammaInput, false);
         XPROPERTY(bool, derived_type, gammaOutput, false);
@@ -48,7 +48,7 @@ namespace xthree
         XPROPERTY(int, derived_type, maxMorphTargets, 8);
         XPROPERTY(int, derived_type, maxMorphNormals, 4);
         XPROPERTY(bool, derived_type, physicallyCorrectLights, false);
-        XPROPERTY(webgl_shadow_map, derived_type, shadowMap, webgl_shadow_map());
+        XPROPERTY(xw::xholder<xwebgl_shadow_map>, derived_type, shadowMap, std::move(webgl_shadow_map()));
         XPROPERTY(bool, derived_type, sortObject, true);
         XPROPERTY(std::string, derived_type, toneMapping, "LinearToneMapping", xenums::ToneMappings);
         XPROPERTY(double, derived_type, toneMappingExposure, 1.0);
@@ -250,11 +250,13 @@ namespace xthree
  * precompiled types *
  *********************/
 
-// #ifndef _WIN32
-//     extern template class xw::xmaterialize<xthree::xpreview>;
-//     extern template class xw::xtransport<xw::xmaterialize<xthree::xpreview>>;
-//     extern template class xw::xgenerator<xthree::xpreview>;
-//     extern template class xw::xtransport<xw::xgenerator<xthree::xpreview>>;
-// #endif
+#ifdef XTHREEJS_PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xpreview>;
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xpreview>>;
+        extern template class xw::xgenerator<xthree::xpreview>;
+        extern template class xw::xtransport<xw::xgenerator<xthree::xpreview>>;
+    #endif
+#endif
 
 #endif

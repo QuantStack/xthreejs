@@ -6,7 +6,6 @@
 #include "objects/xclone_array_autogen.hpp"
 #include "objects/xgroup_autogen.hpp"
 #include "objects/xl_o_d_autogen.hpp"
-#include "objects/xlens_flare_autogen.hpp"
 #include "objects/xline_autogen.hpp"
 #include "objects/xline_loop_autogen.hpp"
 #include "objects/xline_segments_autogen.hpp"

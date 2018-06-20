@@ -31,6 +31,7 @@ namespace xthree
         XPROPERTY(int, derived_type, segments, 12);
         XPROPERTY(double, derived_type, phiStart, 0);
         XPROPERTY(double, derived_type, phiLength, 6.283185307179586);
+        XPROPERTY(std::string, derived_type, type, "LatheGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -63,6 +64,7 @@ namespace xthree
         xw::set_patch_from_property(segments, state, buffers);
         xw::set_patch_from_property(phiStart, state, buffers);
         xw::set_patch_from_property(phiLength, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -74,6 +76,7 @@ namespace xthree
         xw::set_property_from_patch(segments, patch, buffers);
         xw::set_property_from_patch(phiStart, patch, buffers);
         xw::set_property_from_patch(phiLength, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -89,20 +92,15 @@ namespace xthree
         this->_model_name() = "LatheGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xlathe_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xlathe_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xlathe_geometry>;
         extern template xw::xmaterialize<xthree::xlathe_geometry>::xmaterialize();

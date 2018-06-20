@@ -34,7 +34,7 @@ namespace xthree
         XPROPERTY(vector3, derived_type, face, vector3({0,0,0}));
         XPROPERTY(vector3, derived_type, faceNormal, vector3({0,0,0}));
         XPROPERTY(std::vector<std::vector<double>>, derived_type, faceVertices, std::vector<std::vector<double>>({}));
-        XPROPERTY(xtl::xoptional<int>, derived_type, faceIndex);
+        XPROPERTY(int, derived_type, faceIndex, 0);
         XPROPERTY(std::vector<double>, derived_type, modifiers, std::vector<double>({}));
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, object);
         XPROPERTY(std::vector<double>, derived_type, picked, std::vector<double>({}));
@@ -116,20 +116,15 @@ namespace xthree
         this->_model_name() = "PickerModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xpicker>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xpicker>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xpicker>;
         extern template xw::xmaterialize<xthree::xpicker>::xmaterialize();

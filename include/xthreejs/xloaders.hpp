@@ -10,6 +10,7 @@
 #include "loaders/xdata_texture_loader_autogen.hpp"
 #include "loaders/xfile_loader_autogen.hpp"
 #include "loaders/xfont_loader_autogen.hpp"
+#include "loaders/ximage_bitmap_loader_autogen.hpp"
 #include "loaders/ximage_loader_autogen.hpp"
 #include "loaders/xj_s_o_n_loader_autogen.hpp"
 #include "loaders/xloader_autogen.hpp"

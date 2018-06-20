@@ -33,6 +33,7 @@ namespace xthree
         XPROPERTY(double, derived_type, penumbra, 0);
         XPROPERTY(double, derived_type, decay, 1);
         XPROPERTY(xw::xholder<xthree_widget>, derived_type, shadow, object3d());
+        XPROPERTY(std::string, derived_type, type, "SpotLight");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -67,6 +68,7 @@ namespace xthree
         xw::set_patch_from_property(penumbra, state, buffers);
         xw::set_patch_from_property(decay, state, buffers);
         xw::set_patch_from_property(shadow, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -80,6 +82,7 @@ namespace xthree
         xw::set_property_from_patch(penumbra, patch, buffers);
         xw::set_property_from_patch(decay, patch, buffers);
         xw::set_property_from_patch(shadow, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -95,20 +98,15 @@ namespace xthree
         this->_model_name() = "SpotLightModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xspot_light>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xspot_light>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xspot_light>;
         extern template xw::xmaterialize<xthree::xspot_light>::xmaterialize();

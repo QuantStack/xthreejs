@@ -27,10 +27,13 @@ namespace xthree
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
+        XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, index);
         XPROPERTY(dict, derived_type, attributes, {});
         
         XPROPERTY(int, derived_type, MaxIndex, 65535);
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, _ref_geometry);
+        XPROPERTY(bool, derived_type, _store_ref, false);
+        XPROPERTY(std::string, derived_type, type, "BufferGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -59,9 +62,12 @@ namespace xthree
     {
         base_type::serialize_state(state, buffers);
 
+        xw::set_patch_from_property(index, state, buffers);
         xw::set_patch_from_property(attributes, state, buffers);
         xw::set_patch_from_property(MaxIndex, state, buffers);
         xw::set_patch_from_property(_ref_geometry, state, buffers);
+        xw::set_patch_from_property(_store_ref, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -69,9 +75,12 @@ namespace xthree
     {
         base_type::apply_patch(patch, buffers);
 
+        xw::set_property_from_patch(index, patch, buffers);
         xw::set_property_from_patch(attributes, patch, buffers);
         xw::set_property_from_patch(MaxIndex, patch, buffers);
         xw::set_property_from_patch(_ref_geometry, patch, buffers);
+        xw::set_property_from_patch(_store_ref, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -87,20 +96,15 @@ namespace xthree
         this->_model_name() = "BufferGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbuffer_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xbuffer_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xbuffer_geometry>;
         extern template xw::xmaterialize<xthree::xbuffer_geometry>::xmaterialize();

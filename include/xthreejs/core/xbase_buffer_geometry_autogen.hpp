@@ -28,7 +28,7 @@ namespace xthree
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(std::string, derived_type, name, "");
-        XPROPERTY(std::string, derived_type, type, "");
+        XPROPERTY(std::string, derived_type, type, "BaseBufferGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -83,20 +83,15 @@ namespace xthree
         this->_model_name() = "BaseBufferGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbase_buffer_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xbase_buffer_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xbase_buffer_geometry>;
         extern template xw::xmaterialize<xthree::xbase_buffer_geometry>::xmaterialize();

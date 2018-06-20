@@ -77,20 +77,15 @@ namespace xthree
         this->_model_name() = "VectorKeyframeTrackModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xvector_keyframe_track>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xvector_keyframe_track>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xvector_keyframe_track>;
         extern template xw::xmaterialize<xthree::xvector_keyframe_track>::xmaterialize();

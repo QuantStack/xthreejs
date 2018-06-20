@@ -37,6 +37,8 @@ namespace xthree
         XPROPERTY(std::vector<std::vector<double>>, derived_type, skinWeights, std::vector<std::vector<double>>({}));
         XPROPERTY(std::vector<std::vector<double>>, derived_type, skinIndices, std::vector<std::vector<double>>({}));
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, _ref_geometry);
+        XPROPERTY(bool, derived_type, _store_ref, false);
+        XPROPERTY(std::string, derived_type, type, "Geometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -75,6 +77,8 @@ namespace xthree
         xw::set_patch_from_property(skinWeights, state, buffers);
         xw::set_patch_from_property(skinIndices, state, buffers);
         xw::set_patch_from_property(_ref_geometry, state, buffers);
+        xw::set_patch_from_property(_store_ref, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -92,6 +96,8 @@ namespace xthree
         xw::set_property_from_patch(skinWeights, patch, buffers);
         xw::set_property_from_patch(skinIndices, patch, buffers);
         xw::set_property_from_patch(_ref_geometry, patch, buffers);
+        xw::set_property_from_patch(_store_ref, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -107,20 +113,15 @@ namespace xthree
         this->_model_name() = "GeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xgeometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xgeometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xgeometry>;
         extern template xw::xmaterialize<xthree::xgeometry>::xmaterialize();

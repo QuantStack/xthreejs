@@ -69,25 +69,23 @@ namespace xthree
         this->send(std::move(content), std::move(buffers));
     }
 
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xmaterial>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xthree::material& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-// #ifndef _WIN32
-//    extern template class xw::xmaterialize<xthree::xmaterial>;
-//    extern template xw::xmaterialize<xthree::xmaterial>::xmaterialize();
-//    extern template class xw::xtransport<xw::xmaterialize<xthree::xmaterial>>;
-//    extern template class xw::xgenerator<xthree::xmaterial>;
-//    extern template xw::xgenerator<xthree::xmaterial>::xgenerator();
-//    extern template class xw::xtransport<xw::xgenerator<xthree::xmaterial>>;
-// #endif
+#ifdef XTHREEJS_PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xmaterial>;
+        extern template xw::xmaterialize<xthree::xmaterial>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xmaterial>>;
+        extern template class xw::xgenerator<xthree::xmaterial>;
+        extern template xw::xgenerator<xthree::xmaterial>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xmaterial>>;
+    #endif
+#endif
 
 #endif

@@ -27,6 +27,9 @@ namespace xthree
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
+        XPROPERTY(double, derived_type, width, 10);
+        XPROPERTY(double, derived_type, height, 10);
+        XPROPERTY(std::string, derived_type, type, "RectAreaLight");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -55,6 +58,9 @@ namespace xthree
     {
         base_type::serialize_state(state, buffers);
 
+        xw::set_patch_from_property(width, state, buffers);
+        xw::set_patch_from_property(height, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -62,6 +68,9 @@ namespace xthree
     {
         base_type::apply_patch(patch, buffers);
 
+        xw::set_property_from_patch(width, patch, buffers);
+        xw::set_property_from_patch(height, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -77,20 +86,15 @@ namespace xthree
         this->_model_name() = "RectAreaLightModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xrect_area_light>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xrect_area_light>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xrect_area_light>;
         extern template xw::xmaterialize<xthree::xrect_area_light>::xmaterialize();

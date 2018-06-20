@@ -1,5 +1,5 @@
-#ifndef XTHREE_LIGHT_SHADOW_HPP
-#define XTHREE_LIGHT_SHADOW_HPP
+#ifndef XTHREE_LIGHT_SHADOW_BASE_HPP
+#define XTHREE_LIGHT_SHADOW_BASE_HPP
 
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
@@ -13,11 +13,11 @@
 namespace xthree
 {
     //
-    // light_shadow declaration
+    // light_shadow_base declaration
     //
 
     template<class D>
-    class xlight_shadow : public xthree_widget<D>
+    class xlight_shadow_base : public xthree_widget<D>
     {
     public:
 
@@ -37,7 +37,7 @@ namespace xthree
 
     protected:
 
-        xlight_shadow();
+        xlight_shadow_base();
         using base_type::base_type;
         
     private:
@@ -45,17 +45,17 @@ namespace xthree
         void set_defaults();
     };
 
-    using light_shadow = xw::xmaterialize<xlight_shadow>;
+    using light_shadow_base = xw::xmaterialize<xlight_shadow_base>;
 
-    using light_shadow_generator = xw::xgenerator<xlight_shadow>;
+    using light_shadow_base_generator = xw::xgenerator<xlight_shadow_base>;
 
     //
-    // light_shadow implementation
+    // light_shadow_base implementation
     //
 
 
     template <class D>
-    inline void xlight_shadow<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
+    inline void xlight_shadow_base<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
@@ -66,7 +66,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xlight_shadow<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
+    inline void xlight_shadow_base<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
         base_type::apply_patch(patch, buffers);
 
@@ -77,39 +77,33 @@ namespace xthree
     }
 
     template <class D>
-    inline xlight_shadow<D>::xlight_shadow()
+    inline xlight_shadow_base<D>::xlight_shadow_base()
         : base_type()
     {
         set_defaults();
     }
 
     template <class D>
-    inline void xlight_shadow<D>::set_defaults()
+    inline void xlight_shadow_base<D>::set_defaults()
     {
-        this->_model_name() = "LightShadowModel";
+        this->_model_name() = "LightShadowBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xlight_shadow>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
-        extern template class xw::xmaterialize<xthree::xlight_shadow>;
-        extern template xw::xmaterialize<xthree::xlight_shadow>::xmaterialize();
-        extern template class xw::xtransport<xw::xmaterialize<xthree::xlight_shadow>>;
-        extern template class xw::xgenerator<xthree::xlight_shadow>;
-        extern template xw::xgenerator<xthree::xlight_shadow>::xgenerator();
-        extern template class xw::xtransport<xw::xgenerator<xthree::xlight_shadow>>;
+        extern template class xw::xmaterialize<xthree::xlight_shadow_base>;
+        extern template xw::xmaterialize<xthree::xlight_shadow_base>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xlight_shadow_base>>;
+        extern template class xw::xgenerator<xthree::xlight_shadow_base>;
+        extern template xw::xgenerator<xthree::xlight_shadow_base>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xlight_shadow_base>>;
     #endif
 #endif
 

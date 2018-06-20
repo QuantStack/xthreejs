@@ -34,6 +34,7 @@ namespace xthree
         XPROPERTY(double, derived_type, bottom, 0);
         XPROPERTY(double, derived_type, near, 0.1);
         XPROPERTY(double, derived_type, far, 2000);
+        XPROPERTY(std::string, derived_type, type, "OrthographicCamera");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -69,6 +70,7 @@ namespace xthree
         xw::set_patch_from_property(bottom, state, buffers);
         xw::set_patch_from_property(near, state, buffers);
         xw::set_patch_from_property(far, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -83,6 +85,7 @@ namespace xthree
         xw::set_property_from_patch(bottom, patch, buffers);
         xw::set_property_from_patch(near, patch, buffers);
         xw::set_property_from_patch(far, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -98,20 +101,15 @@ namespace xthree
         this->_model_name() = "OrthographicCameraModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xorthographic_camera>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xorthographic_camera>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xorthographic_camera>;
         extern template xw::xmaterialize<xthree::xorthographic_camera>::xmaterialize();

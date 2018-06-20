@@ -33,6 +33,7 @@ namespace xthree
         XPROPERTY(int, derived_type, phiSegments, 8);
         XPROPERTY(double, derived_type, thetaStart, 0);
         XPROPERTY(double, derived_type, thetaLength, 6.283185307179586);
+        XPROPERTY(std::string, derived_type, type, "RingBufferGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -67,6 +68,7 @@ namespace xthree
         xw::set_patch_from_property(phiSegments, state, buffers);
         xw::set_patch_from_property(thetaStart, state, buffers);
         xw::set_patch_from_property(thetaLength, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -80,6 +82,7 @@ namespace xthree
         xw::set_property_from_patch(phiSegments, patch, buffers);
         xw::set_property_from_patch(thetaStart, patch, buffers);
         xw::set_property_from_patch(thetaLength, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -95,20 +98,15 @@ namespace xthree
         this->_model_name() = "RingBufferGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xring_buffer_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xring_buffer_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xring_buffer_geometry>;
         extern template xw::xmaterialize<xthree::xring_buffer_geometry>::xmaterialize();

@@ -1,5 +1,5 @@
-#ifndef XTHREE_INSTANCED_BUFFER_ATTRIBUTE_HPP
-#define XTHREE_INSTANCED_BUFFER_ATTRIBUTE_HPP
+#ifndef XTHREE_INSTANCED_BUFFER_ATTRIBUTE_BASE_HPP
+#define XTHREE_INSTANCED_BUFFER_ATTRIBUTE_BASE_HPP
 
 #include "xtl/xoptional.hpp"
 #include "xwidgets/xeither.hpp"
@@ -7,17 +7,17 @@
 
 #include "../base/xenums.hpp"
 #include "../base/xthree_types.hpp"
-#include "xbuffer_attribute_autogen.hpp"
+#include "xbuffer_attribute.hpp"
 #include "../base/xrender.hpp"
 
 namespace xthree
 {
     //
-    // instanced_buffer_attribute declaration
+    // instanced_buffer_attribute_base declaration
     //
 
     template<class D>
-    class xinstanced_buffer_attribute : public xbuffer_attribute<D>
+    class xinstanced_buffer_attribute_base : public xbuffer_attribute<D>
     {
     public:
 
@@ -34,7 +34,7 @@ namespace xthree
 
     protected:
 
-        xinstanced_buffer_attribute();
+        xinstanced_buffer_attribute_base();
         using base_type::base_type;
         
     private:
@@ -42,17 +42,17 @@ namespace xthree
         void set_defaults();
     };
 
-    using instanced_buffer_attribute = xw::xmaterialize<xinstanced_buffer_attribute>;
+    using instanced_buffer_attribute_base = xw::xmaterialize<xinstanced_buffer_attribute_base>;
 
-    using instanced_buffer_attribute_generator = xw::xgenerator<xinstanced_buffer_attribute>;
+    using instanced_buffer_attribute_base_generator = xw::xgenerator<xinstanced_buffer_attribute_base>;
 
     //
-    // instanced_buffer_attribute implementation
+    // instanced_buffer_attribute_base implementation
     //
 
 
     template <class D>
-    inline void xinstanced_buffer_attribute<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
+    inline void xinstanced_buffer_attribute_base<D>::serialize_state(xeus::xjson& state, xeus::buffer_sequence& buffers) const
     {
         base_type::serialize_state(state, buffers);
 
@@ -60,7 +60,7 @@ namespace xthree
     }
 
     template <class D>
-    inline void xinstanced_buffer_attribute<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
+    inline void xinstanced_buffer_attribute_base<D>::apply_patch(const xeus::xjson& patch, const xeus::buffer_sequence& buffers)
     {
         base_type::apply_patch(patch, buffers);
 
@@ -68,39 +68,33 @@ namespace xthree
     }
 
     template <class D>
-    inline xinstanced_buffer_attribute<D>::xinstanced_buffer_attribute()
+    inline xinstanced_buffer_attribute_base<D>::xinstanced_buffer_attribute_base()
         : base_type()
     {
         set_defaults();
     }
 
     template <class D>
-    inline void xinstanced_buffer_attribute<D>::set_defaults()
+    inline void xinstanced_buffer_attribute_base<D>::set_defaults()
     {
-        this->_model_name() = "InstancedBufferAttributeModel";
+        this->_model_name() = "InstancedBufferAttributeBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xinstanced_buffer_attribute>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
-        extern template class xw::xmaterialize<xthree::xinstanced_buffer_attribute>;
-        extern template xw::xmaterialize<xthree::xinstanced_buffer_attribute>::xmaterialize();
-        extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute>>;
-        extern template class xw::xgenerator<xthree::xinstanced_buffer_attribute>;
-        extern template xw::xgenerator<xthree::xinstanced_buffer_attribute>::xgenerator();
-        extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute>>;
+        extern template class xw::xmaterialize<xthree::xinstanced_buffer_attribute_base>;
+        extern template xw::xmaterialize<xthree::xinstanced_buffer_attribute_base>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xinstanced_buffer_attribute_base>>;
+        extern template class xw::xgenerator<xthree::xinstanced_buffer_attribute_base>;
+        extern template xw::xgenerator<xthree::xinstanced_buffer_attribute_base>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xinstanced_buffer_attribute_base>>;
     #endif
 #endif
 

@@ -18,6 +18,4 @@
 #include "extras/curves/xquadratic_bezier_curve_autogen.hpp"
 #include "extras/curves/xspline_curve_autogen.hpp"
 #include "extras/objects/ximmediate_render_object_autogen.hpp"
-#include "extras/xscene_utils_autogen.hpp"
-#include "extras/xshape_utils_autogen.hpp"
 #endif

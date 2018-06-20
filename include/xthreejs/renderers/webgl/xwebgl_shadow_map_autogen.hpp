@@ -29,8 +29,6 @@ namespace xthree
 
         XPROPERTY(bool, derived_type, enabled, false);
         XPROPERTY(std::string, derived_type, type, "PCFShadowMap", xenums::ShadowTypes);
-        XPROPERTY(bool, derived_type, renderReverseSided, false);
-        XPROPERTY(bool, derived_type, renderSingleSided, true);
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -61,8 +59,6 @@ namespace xthree
 
         xw::set_patch_from_property(enabled, state, buffers);
         xw::set_patch_from_property(type, state, buffers);
-        xw::set_patch_from_property(renderReverseSided, state, buffers);
-        xw::set_patch_from_property(renderSingleSided, state, buffers);
     }
 
     template <class D>
@@ -72,8 +68,6 @@ namespace xthree
 
         xw::set_property_from_patch(enabled, patch, buffers);
         xw::set_property_from_patch(type, patch, buffers);
-        xw::set_property_from_patch(renderReverseSided, patch, buffers);
-        xw::set_property_from_patch(renderSingleSided, patch, buffers);
     }
 
     template <class D>
@@ -89,20 +83,14 @@ namespace xthree
         this->_model_name() = "WebGLShadowMapBaseModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xwebgl_shadow_map_base>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xwebgl_shadow_map_base>;
         extern template xw::xmaterialize<xthree::xwebgl_shadow_map_base>::xmaterialize();

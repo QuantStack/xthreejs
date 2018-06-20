@@ -77,20 +77,15 @@ namespace xthree
         this->_model_name() = "BufferGeometryLoaderModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xbuffer_geometry_loader>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xbuffer_geometry_loader>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xbuffer_geometry_loader>;
         extern template xw::xmaterialize<xthree::xbuffer_geometry_loader>::xmaterialize();

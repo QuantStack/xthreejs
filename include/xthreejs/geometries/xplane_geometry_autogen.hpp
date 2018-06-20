@@ -31,6 +31,7 @@ namespace xthree
         XPROPERTY(double, derived_type, height, 1);
         XPROPERTY(int, derived_type, widthSegments, 1);
         XPROPERTY(int, derived_type, heightSegments, 1);
+        XPROPERTY(std::string, derived_type, type, "PlaneGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -63,6 +64,7 @@ namespace xthree
         xw::set_patch_from_property(height, state, buffers);
         xw::set_patch_from_property(widthSegments, state, buffers);
         xw::set_patch_from_property(heightSegments, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -74,6 +76,7 @@ namespace xthree
         xw::set_property_from_patch(height, patch, buffers);
         xw::set_property_from_patch(widthSegments, patch, buffers);
         xw::set_property_from_patch(heightSegments, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -89,20 +92,15 @@ namespace xthree
         this->_model_name() = "PlaneGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xplane_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xplane_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xplane_geometry>;
         extern template xw::xmaterialize<xthree::xplane_geometry>::xmaterialize();

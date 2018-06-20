@@ -31,6 +31,7 @@ namespace xthree
         XPROPERTY(xw::xholder<xthree_widget>, derived_type, geometry);
         XPROPERTY(std::string, derived_type, drawMode, "TrianglesDrawMode", xenums::DrawModes);
         XPROPERTY(std::vector<double>, derived_type, morphTargetInfluences, std::vector<double>({}));
+        XPROPERTY(std::string, derived_type, type, "Mesh");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -63,6 +64,7 @@ namespace xthree
         xw::set_patch_from_property(geometry, state, buffers);
         xw::set_patch_from_property(drawMode, state, buffers);
         xw::set_patch_from_property(morphTargetInfluences, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -74,6 +76,7 @@ namespace xthree
         xw::set_property_from_patch(geometry, patch, buffers);
         xw::set_property_from_patch(drawMode, patch, buffers);
         xw::set_property_from_patch(morphTargetInfluences, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -89,20 +92,15 @@ namespace xthree
         this->_model_name() = "MeshModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xmesh>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xmesh>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xmesh>;
         extern template xw::xmaterialize<xthree::xmesh>::xmaterialize();

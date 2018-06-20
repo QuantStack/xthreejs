@@ -31,6 +31,7 @@ namespace xthree
         XPROPERTY(int, derived_type, divisions, 10);
         XPROPERTY(xw::html_color, derived_type, colorCenterLine, "0x444444");
         XPROPERTY(xw::html_color, derived_type, colorGrid, "0x888888");
+        XPROPERTY(std::string, derived_type, type, "GridHelper");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -63,6 +64,7 @@ namespace xthree
         xw::set_patch_from_property(divisions, state, buffers);
         xw::set_patch_from_property(colorCenterLine, state, buffers);
         xw::set_patch_from_property(colorGrid, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -74,6 +76,7 @@ namespace xthree
         xw::set_property_from_patch(divisions, patch, buffers);
         xw::set_property_from_patch(colorCenterLine, patch, buffers);
         xw::set_property_from_patch(colorGrid, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -89,20 +92,15 @@ namespace xthree
         this->_model_name() = "GridHelperModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xgrid_helper>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xgrid_helper>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xgrid_helper>;
         extern template xw::xmaterialize<xthree::xgrid_helper>::xmaterialize();

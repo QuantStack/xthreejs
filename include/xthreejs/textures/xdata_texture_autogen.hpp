@@ -27,7 +27,7 @@ namespace xthree
         void serialize_state(xeus::xjson&, xeus::buffer_sequence&) const;
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
-        XPROPERTY(webgldataunion, derived_type, data);
+        XPROPERTY(webgldataunion<float>, derived_type, data);
         XPROPERTY(std::string, derived_type, minFilter, "NearestFilter", xenums::Filters);
         XPROPERTY(std::string, derived_type, magFilter, "NearestFilter", xenums::Filters);
         XPROPERTY(bool, derived_type, flipY, false);
@@ -101,20 +101,15 @@ namespace xthree
         this->_model_name() = "DataTextureModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xdata_texture>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xdata_texture>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xdata_texture>;
         extern template xw::xmaterialize<xthree::xdata_texture>::xmaterialize();

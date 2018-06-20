@@ -30,6 +30,7 @@ namespace xthree
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, light);
         XPROPERTY(double, derived_type, sphereSize, 1);
         XPROPERTY(xtl::xoptional<xw::html_color>, derived_type, color, "#ffffff");
+        XPROPERTY(std::string, derived_type, type, "PointLightHelper");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -61,6 +62,7 @@ namespace xthree
         xw::set_patch_from_property(light, state, buffers);
         xw::set_patch_from_property(sphereSize, state, buffers);
         xw::set_patch_from_property(color, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -71,6 +73,7 @@ namespace xthree
         xw::set_property_from_patch(light, patch, buffers);
         xw::set_property_from_patch(sphereSize, patch, buffers);
         xw::set_property_from_patch(color, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -86,20 +89,15 @@ namespace xthree
         this->_model_name() = "PointLightHelperModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xpoint_light_helper>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xpoint_light_helper>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xpoint_light_helper>;
         extern template xw::xmaterialize<xthree::xpoint_light_helper>::xmaterialize();

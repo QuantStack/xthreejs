@@ -1,8 +1,17 @@
-#include "xthreejs/xthreejs.hpp"
+#include "xthreejs/geometries/xpolyhedron_geometry_autogen.hpp"
 
-template class xw::xmaterialize<xthree::xpolyhedron_geometry>;
-template xw::xmaterialize<xthree::xpolyhedron_geometry>::xmaterialize();
-template class xw::xtransport<xw::xmaterialize<xthree::xpolyhedron_geometry>>;
-template class xw::xgenerator<xthree::xpolyhedron_geometry>;
-template xw::xgenerator<xthree::xpolyhedron_geometry>::xgenerator();
-template class xw::xtransport<xw::xgenerator<xthree::xpolyhedron_geometry>>;
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xpolyhedron_geometry>& widget)
+{
+    if (not widget.pre)
+        widget.pre = std::make_shared<xthree::preview>(xthree::preview(widget));
+    return mime_bundle_repr(*widget.pre);
+}
+
+#ifdef XTHREEJS_PRECOMPILED
+    template class xw::xmaterialize<xthree::xpolyhedron_geometry>;
+    template xw::xmaterialize<xthree::xpolyhedron_geometry>::xmaterialize();
+    template class xw::xtransport<xw::xmaterialize<xthree::xpolyhedron_geometry>>;
+    template class xw::xgenerator<xthree::xpolyhedron_geometry>;
+    template xw::xgenerator<xthree::xpolyhedron_geometry>::xgenerator();
+    template class xw::xtransport<xw::xgenerator<xthree::xpolyhedron_geometry>>;
+#endif

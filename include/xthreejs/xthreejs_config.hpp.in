@@ -21,8 +21,9 @@
 #define XTHREEJS_BINARY_REVISION 0
 #define XTHREEJS_BINARY_AGE 1
 
-#define XTHREEJS_PROTOCOL_VERSION_MAJOR 2
-#define XTHREEJS_PROTOCOL_VERSION_MINOR 0
+// Semver requirement for threejs
+#define XTHREEJS_PROTOCOL_VERSION_MAJOR 1
+#define XTHREEJS_PROTOCOL_VERSION_MINOR 1
 #define XTHREEJS_PROTOCOL_VERSION_PATCH 0
 
 // Composing the protocol version string from major, minor and patch

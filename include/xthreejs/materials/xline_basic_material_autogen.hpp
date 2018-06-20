@@ -32,6 +32,7 @@ namespace xthree
         XPROPERTY(double, derived_type, linewidth, 1);
         XPROPERTY(std::string, derived_type, linecap, "round");
         XPROPERTY(std::string, derived_type, linejoin, "round");
+        XPROPERTY(std::string, derived_type, type, "LineBasicMaterial");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -65,6 +66,7 @@ namespace xthree
         xw::set_patch_from_property(linewidth, state, buffers);
         xw::set_patch_from_property(linecap, state, buffers);
         xw::set_patch_from_property(linejoin, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -77,6 +79,7 @@ namespace xthree
         xw::set_property_from_patch(linewidth, patch, buffers);
         xw::set_property_from_patch(linecap, patch, buffers);
         xw::set_property_from_patch(linejoin, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -92,20 +95,15 @@ namespace xthree
         this->_model_name() = "LineBasicMaterialModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xline_basic_material>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xline_basic_material>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xline_basic_material>;
         extern template xw::xmaterialize<xthree::xline_basic_material>::xmaterialize();

@@ -30,6 +30,7 @@ namespace xthree
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, original);
         XPROPERTY(std::vector<std::vector<double>>, derived_type, positions, std::vector<std::vector<double>>({}));
         XPROPERTY(bool, derived_type, merge, false);
+        XPROPERTY(std::string, derived_type, type, "CloneArray");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -61,6 +62,7 @@ namespace xthree
         xw::set_patch_from_property(original, state, buffers);
         xw::set_patch_from_property(positions, state, buffers);
         xw::set_patch_from_property(merge, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -71,6 +73,7 @@ namespace xthree
         xw::set_property_from_patch(original, patch, buffers);
         xw::set_property_from_patch(positions, patch, buffers);
         xw::set_property_from_patch(merge, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -86,20 +89,15 @@ namespace xthree
         this->_model_name() = "CloneArrayModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xclone_array>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xclone_array>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xclone_array>;
         extern template xw::xmaterialize<xthree::xclone_array>::xmaterialize();

@@ -30,6 +30,7 @@ namespace xthree
         XPROPERTY(std::string, derived_type, bindMode, "attached");
         XPROPERTY(matrix4, derived_type, bindMatrix, matrix4({1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}));
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, skeleton);
+        XPROPERTY(std::string, derived_type, type, "SkinnedMesh");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -61,6 +62,7 @@ namespace xthree
         xw::set_patch_from_property(bindMode, state, buffers);
         xw::set_patch_from_property(bindMatrix, state, buffers);
         xw::set_patch_from_property(skeleton, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -71,6 +73,7 @@ namespace xthree
         xw::set_property_from_patch(bindMode, patch, buffers);
         xw::set_property_from_patch(bindMatrix, patch, buffers);
         xw::set_property_from_patch(skeleton, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -86,20 +89,15 @@ namespace xthree
         this->_model_name() = "SkinnedMeshModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xskinned_mesh>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xskinned_mesh>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xskinned_mesh>;
         extern template xw::xmaterialize<xthree::xskinned_mesh>::xmaterialize();

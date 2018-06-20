@@ -30,6 +30,7 @@ namespace xthree
         XPROPERTY(std::string, derived_type, func, R"(function (u,v) { return THREE.Vector3(); })");
         XPROPERTY(int, derived_type, slices, 3);
         XPROPERTY(int, derived_type, stacks, 3);
+        XPROPERTY(std::string, derived_type, type, "ParametricGeometry");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -61,6 +62,7 @@ namespace xthree
         xw::set_patch_from_property(func, state, buffers);
         xw::set_patch_from_property(slices, state, buffers);
         xw::set_patch_from_property(stacks, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -71,6 +73,7 @@ namespace xthree
         xw::set_property_from_patch(func, patch, buffers);
         xw::set_property_from_patch(slices, patch, buffers);
         xw::set_property_from_patch(stacks, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -86,20 +89,15 @@ namespace xthree
         this->_model_name() = "ParametricGeometryModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xparametric_geometry>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xparametric_geometry>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xparametric_geometry>;
         extern template xw::xmaterialize<xthree::xparametric_geometry>::xmaterialize();

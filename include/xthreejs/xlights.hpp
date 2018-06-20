@@ -6,6 +6,7 @@
 #include "lights/xdirectional_light_shadow_autogen.hpp"
 #include "lights/xhemisphere_light_autogen.hpp"
 #include "lights/xlight_autogen.hpp"
+#include "lights/xlight_shadow.hpp"
 #include "lights/xlight_shadow_autogen.hpp"
 #include "lights/xpoint_light_autogen.hpp"
 #include "lights/xrect_area_light_autogen.hpp"

@@ -28,8 +28,8 @@ namespace xthree
         void apply_patch(const xeus::xjson&, const xeus::buffer_sequence&);
 
         XPROPERTY(std::string, derived_type, name, "");
-        XPROPERTY(webgldataunion, derived_type, times);
-        XPROPERTY(webgldataunion, derived_type, values);
+        XPROPERTY(webgldataunion<float>, derived_type, times);
+        XPROPERTY(webgldataunion<float>, derived_type, values);
         XPROPERTY(std::string, derived_type, interpolation, "InterpolateLinear", xenums::InterpolationModes);
 
         const std::vector<xw::xjson_path_type>& buffer_paths() const;
@@ -99,20 +99,15 @@ namespace xthree
         this->_model_name() = "KeyframeTrackModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xkeyframe_track>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xkeyframe_track>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xkeyframe_track>;
         extern template xw::xmaterialize<xthree::xkeyframe_track>::xmaterialize();

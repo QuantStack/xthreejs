@@ -32,6 +32,7 @@ namespace xthree
         XPROPERTY(bool, derived_type, lights, false);
         XPROPERTY(xtl::xoptional<xw::xholder<xthree_widget>>, derived_type, map);
         XPROPERTY(double, derived_type, rotation, 0);
+        XPROPERTY(std::string, derived_type, type, "SpriteMaterial");
 
 
         std::shared_ptr<xw::xmaterialize<xpreview>> pre = nullptr;
@@ -65,6 +66,7 @@ namespace xthree
         xw::set_patch_from_property(lights, state, buffers);
         xw::set_patch_from_property(map, state, buffers);
         xw::set_patch_from_property(rotation, state, buffers);
+        xw::set_patch_from_property(type, state, buffers);
     }
 
     template <class D>
@@ -77,6 +79,7 @@ namespace xthree
         xw::set_property_from_patch(lights, patch, buffers);
         xw::set_property_from_patch(map, patch, buffers);
         xw::set_property_from_patch(rotation, patch, buffers);
+        xw::set_property_from_patch(type, patch, buffers);
     }
 
     template <class D>
@@ -92,20 +95,15 @@ namespace xthree
         this->_model_name() = "SpriteMaterialModel";
         this->_view_name() = "";
     }
-
-    xeus::xjson mime_bundle_repr(xw::xmaterialize<xsprite_material>& widget)
-    {
-        if (not widget.pre)
-            widget.pre = std::make_shared<preview>(preview(widget));
-        return mime_bundle_repr(*widget.pre);
-    }
 }
+
+xeus::xjson mime_bundle_repr(xw::xmaterialize<xthree::xsprite_material>& widget);
 
 /*********************
  * precompiled types *
  *********************/
 
-#ifdef PRECOMPILED
+#ifdef XTHREEJS_PRECOMPILED
     #ifndef _WIN32
         extern template class xw::xmaterialize<xthree::xsprite_material>;
         extern template xw::xmaterialize<xthree::xsprite_material>::xmaterialize();

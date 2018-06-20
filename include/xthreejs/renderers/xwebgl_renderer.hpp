@@ -84,4 +84,20 @@ namespace xthree
         this->send(std::move(content), std::move(buffers));
     }
 }
+
+/*********************
+ * precompiled types *
+ *********************/
+
+#ifdef XTHREEJS_PRECOMPILED
+    #ifndef _WIN32
+        extern template class xw::xmaterialize<xthree::xwebgl_renderer>;
+        extern template xw::xmaterialize<xthree::xwebgl_renderer>::xmaterialize();
+        extern template class xw::xtransport<xw::xmaterialize<xthree::xwebgl_renderer>>;
+        extern template class xw::xgenerator<xthree::xwebgl_renderer>;
+        extern template xw::xgenerator<xthree::xwebgl_renderer>::xgenerator();
+        extern template class xw::xtransport<xw::xgenerator<xthree::xwebgl_renderer>>;
+    #endif
+#endif
+
 #endif
